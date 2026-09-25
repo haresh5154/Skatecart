@@ -1,17 +1,4 @@
-<!-- Register Form -->
-<div id="registerForm" style="display: none;">
-    <h3>Create Creator Account</h3>
-    <p>Sign up to start your journey</p>
-    
-    <form>
-        <label>Email address</label>
-        <input type="email" placeholder="Enter your email" required>
-
-        <label>Password</label>
-        <input type="password" placeholder="Create a password" required>
-
-        <button type="submit" class="btn">Register</button>
-    </form>
-    
-    <p>Already have an account? <a href="#" id="showSignIn">Sign In</a></p>
-</div>
+<script>
+function showReg(){document.getElementById('regBox').classList.remove('hide');document.getElementById('loginBox').classList.add('hide')}
+function showLogin(){document.getElementById('loginBox').classList.remove('hide');document.getElementById('regBox').classList.add('hide')}
+</script>
