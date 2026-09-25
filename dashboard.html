@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard - Skatecart</title>
+<style>
+body{margin:0;font-family:sans-serif;background:#f8fafc;display:flex}
+.s{width:220px;background:#0f172a;color:white;min-height:100vh;padding:20px}
+.s h3{margin:0 0 20px 0}
+.s p{padding:10px;color:#94a3b8;font-size:14px;border-radius:8px}
+.s p.a{background:#1e293b;color:white}
+.m{flex:1;padding:25px}
+.c{background:white;padding:20px;border-radius:12px;border:1px solid #e2e8f0;margin-top:15px}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{padding:12px;text-align:left;border-bottom:1px solid #eee;font-size:13px}
+.b{background:#dcfce7;color:#16a34a;padding:4px 10px;border-radius:20px;font-size:11px}
+</style>
+</head>
+<body>
+<div class="s">
+<h3>Skatecart</h3>
+<p class="a">📊 Dashboard</p>
+<p>💳 Payments</p>
+<p>⚙️ Settings</p>
+<p onclick="location.href='index.html'" style="margin-top:200px;cursor:pointer">🚪 Logout</p>
+</div>
+<div class="m">
+<h2>Payment History</h2>
+<p style="color:#888;font-size:13px">Your recent transactions</p>
+<div class="c">
+<table>
+<tr><th>Date</th><th>Amount</th><th>Status</th><th>Method</th></tr>
+<tr><td>25 Sep 2026</td><td>$49.00</td><td><span class="b">Paid</span></td><td>Stripe</td></tr>
+<tr><td>20 Sep 2026</td><td>$99.00</td><td><span class="b">Paid</span></td><td>PayPal</td></tr>
+</table>
+</div>
+</div>
+</div>
+</body>
+</html>
