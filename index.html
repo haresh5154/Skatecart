@@ -2,36 +2,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Skatecart - Login</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f8fafc;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:15px}
-.box{background:white;width:100%;max-width:400px;padding:30px;border-radius:16px;border:1px solid #e2e8f0;box-shadow:0 10px 25px rgba(0,0,0,0.05)}
-.logo{text-align:center;font-size:26px;font-weight:800}
-.sub{text-align:center;color:#64748b;font-size:13px;margin:8px 0 25px}
-label{font-size:13px;font-weight:600;display:block;margin:15px 0 6px;color:#334155}
-input{width:100%;padding:12px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px}
-.btn{width:100%;background:#0f172a;color:white;border:none;padding:12px;border-radius:8px;font-weight:700;margin-top:20px;cursor:pointer}
-.or{text-align:center;color:#94a3b8;font-size:12px;margin:20px 0;display:flex;align-items:center;gap:10px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{background:#f8fafc;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.box{background:white;width:100%;max-width:380px;padding:28px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.08)}
+.logo{text-align:center;font-size:26px;font-weight:800;margin-bottom:4px}
+.sub{text-align:center;color:#64748b;font-size:14px;margin-bottom:22px}
+label{font-size:13px;font-weight:600;display:block;margin-bottom:6px;margin-top:14px}
+input{width:100%;padding:12px 14px;border:1px solid #e2e8f0;border-radius:10px}
+.btn{width:100%;background:#0f172a;color:white;padding:12px;border-radius:10px;border:none;margin-top:18px;font-weight:700;cursor:pointer}
+.or{text-align:center;color:#94a3b8;font-size:13px;margin:16px 0;display:flex;align-items:center;gap:10px}
 .or:before,.or:after{content:"";flex:1;height:1px;background:#e2e8f0}
-.google{width:100%;padding:11px;border:1px solid #e2e8f0;background:white;border-radius:8px;font-weight:600;cursor:pointer}
+.google{width:100%;padding:11px;border:1px solid #e2e8f0;border-radius:10px;background:white;cursor:pointer}
 .bot{text-align:center;margin-top:20px;font-size:13px;color:#64748b}
-.bot b{color:#0f172a}
 </style>
 </head>
 <body>
 <div class="box">
-<div class="logo">Skatecart</div>
-<p class="sub">Welcome back! Please login to your account</p>
-<label>Email Address</label>
-<input type="email" placeholder="you@example.com">
+<div class="logo">Skatecart 🛹</div>
+<div class="sub">Walmart Deals Hub</div>
+<label>Email</label>
+<input type="email" placeholder="you@example.com" id="email">
 <label>Password</label>
-<input type="password" placeholder="••••••••">
-<button class="btn" onclick="window.location.href='dashboard.html'">Log In</button>
-<div class="or">OR</div>
-<button class="google">G Continue with Google</button>
-<p class="bot">Don't have an account? <b>Sign Up</b></p>
+<input type="password" placeholder="••••••••" id="pass">
+<button class="btn" onclick="login()">Login to Dashboard</button>
+<div class="or">or</div>
+<button class="google" onclick="login()">Continue with Google</button>
+<div class="bot">Login karke aap dashboard pe jaoge</div>
 </div>
+<script>
+function login(){
+ window.location.href="dashboard.html";
+}
+</script>
 </body>
 </html>
