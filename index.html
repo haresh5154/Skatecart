@@ -1,41 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Skatecart - Login</title>
+<title>Skatecart - Walmart Deals Hub</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
-body{background:#f8fafc;display:flex;justify-content:center;align-items:center;min-height:100vh}
-.box{background:white;width:100%;max-width:380px;padding:28px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.08)}
-.logo{text-align:center;font-size:26px;font-weight:800;margin-bottom:4px}
-.sub{text-align:center;color:#64748b;font-size:14px;margin-bottom:22px}
-label{font-size:13px;font-weight:600;display:block;margin-bottom:6px;margin-top:14px}
-input{width:100%;padding:12px 14px;border:1px solid #e2e8f0;border-radius:10px}
-.btn{width:100%;background:#0f172a;color:white;padding:12px;border-radius:10px;border:none;margin-top:18px;font-weight:700;cursor:pointer}
-.or{text-align:center;color:#94a3b8;font-size:13px;margin:16px 0;display:flex;align-items:center;gap:10px}
-.or:before,.or:after{content:"";flex:1;height:1px;background:#e2e8f0}
-.google{width:100%;padding:11px;border:1px solid #e2e8f0;border-radius:10px;background:white;cursor:pointer}
-.bot{text-align:center;margin-top:20px;font-size:13px;color:#64748b}
+body{font-family:Arial; background:#f5f5f7; display:flex; justify-content:center; align-items:center; min-height:100vh; margin:0;}
+.card{background:white; padding:30px; border-radius:16px; width:90%; max-width:380px; box-shadow:0 10px 30px rgba(0,0,0,0.1); text-align:center;}
+input{width:100%; padding:14px; margin:10px 0; border-radius:10px; border:1px solid #ddd; box-sizing:border-box; font-size:16px;}
+.btn{width:100%; padding:14px; background:#0f172a; color:white; border:none; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer; margin-top:10px;}
+a{color:#2563eb; text-decoration:none; font-weight:bold;}
 </style>
 </head>
 <body>
-<div class="box">
-<div class="logo">Skatecart 🛹</div>
-<div class="sub">Walmart Deals Hub</div>
-<label>Email</label>
-<input type="email" placeholder="you@example.com" id="email">
-<label>Password</label>
-<input type="password" placeholder="••••••••" id="pass">
-<button class="btn" onclick="login()">Login to Dashboard</button>
-<div class="or">or</div>
-<button class="google" onclick="login()">Continue with Google</button>
-<div class="bot">Login karke aap dashboard pe jaoge</div>
+<div class="card">
+<h1 style="margin:0;">Skatecart 🛹</h1>
+<p style="color:#64748b;">Walmart Deals Hub</p>
+<input type="email" placeholder="you@example.com">
+<input type="password" placeholder="Password">
+<button class="btn" onclick="window.location.href='dashboard.html'">Login to Dashboard</button>
+<p style="margin-top:20px;"><a href="dashboard.html">New creator? Register here</a></p>
+<p style="color:#888; font-size:13px;">Login karke dashboard pe jaoge</p>
 </div>
-<script>
-function login(){
- window.location.href="dashboard.html";
-}
-</script>
 </body>
 </html>
