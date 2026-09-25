@@ -1,25 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Skatecart - Walmart Deals Hub</title>
+<title>Skatecart - Creators Hub</title>
 <style>
-body{font-family:Arial; background:#f5f5f7; display:flex; justify-content:center; align-items:center; min-height:100vh; margin:0;}
-.card{background:white; padding:30px; border-radius:16px; width:90%; max-width:380px; box-shadow:0 10px 30px rgba(0,0,0,0.1); text-align:center;}
-input{width:100%; padding:14px; margin:10px 0; border-radius:10px; border:1px solid #ddd; box-sizing:border-box; font-size:16px;}
-.btn{width:100%; padding:14px; background:#0f172a; color:white; border:none; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer; margin-top:10px;}
-a{color:#2563eb; text-decoration:none; font-weight:bold;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#0a0a0a;color:white}
+.container{max-width:1000px;margin:40px auto;padding:20px}
+.card{background:#18181b;border:1px solid #27272a;border-radius:16px;padding:30px;margin-top:20px}
+input{width:100%;padding:14px;background:#09090b;border:1px solid #27272a;border-radius:10px;color:white;margin:10px 0}
+button{width:100%;padding:14px;background:white;color:black;border:none;border-radius:10px;font-weight:700;cursor:pointer;margin-top:10px}
+button:hover{opacity:0.9}
+.link-box{background:#09090b;padding:15px;border-radius:10px;border:1px dashed #3f3f46;word-break:break-all;margin:15px 0}
+.nav{display:flex;justify-content:space-between;align-items:center}
+.badge{background:#22c55e;color:black;padding:4px 10px;border-radius:20px;font-size:12px}
 </style>
 </head>
 <body>
-<div class="card">
-<h1 style="margin:0;">Skatecart 🛹</h1>
-<p style="color:#64748b;">Walmart Deals Hub</p>
-<input type="email" placeholder="you@example.com">
-<input type="password" placeholder="Password">
-<button class="btn" onclick="window.location.href='dashboard.html'">Login to Dashboard</button>
-<p style="margin-top:20px;"><a href="dashboard.html">New creator? Register here</a></p>
-<p style="color:#888; font-size:13px;">Login karke dashboard pe jaoge</p>
+<div class="container">
+  <div class="nav">
+    <h2>SKATECART HUB</h2>
+    <span id="userEmail" class="badge">Not Logged In</span>
+  </div>
+
+  <div id="authSection" class="card">
+    <h2>Create Account</h2>
+    <p style="color:#a1a1aa;margin:10px 0">Apni personal Gmail se account banao</p>
+    <input id="email" type="email" placeholder="Apni Gmail likho - e.g. name@gmail.com">
+    <input id="password" type="password" placeholder="Apna Password banao">
+    <button onclick="signup()">Account Banao / Signup</button>
+    <button onclick="login()" style="background:#27272a;color:white">Login Karo</button>
+  </div>
+
+  <div id="dashSection" class="card" style="display:none">
+    <h2>Welcome! 👋</h2>
+    <p id="welcomeText" style="color:#a1a1aa;margin:10px 0"></p>
+    
+    <h3 style="margin-top:20px">🔗 Apna Tracking Link Generator</h3>
+    <div class="link-box" id="genLink">Login ke baad link yahan ayegi...</div>
+    <button onclick="generateLink()">Naya Link Generate Karo</button>
+    <button onclick="copyLink()" style="background:#27272a;color:white">Link Copy Karo</button>
+
+    <button onclick="logout()" style="background:#ef4444;color:white;margin-top:30px">Logout</button>
+  </div>
 </div>
+
+<script>
+function signup(){
+  let e=document.getElementById('email').value;
+  let p=document.getElementById('password').value;
+  if(!e || !p){alert("Gmail aur Password likho bhai!");return}
+  localStorage.setItem('skate_user', e);
+  localStorage.setItem('skate_pass', p);
+  alert("Account ban gaya! Ab Login karo");
+  login();
+}
+function login(){
+  let e=document.getElementById('email').value;
+  let p=document.getElementById('password').value;
+  let se=localStorage.getItem('skate_user');
+  let sp=localStorage.getItem('skate_pass');
+  if(e==se && p==sp){
+    localStorage.setItem('logged','yes');
+    showDash(e);
+  }else{ alert("Gmail ya Password galat hai bhai!"); }
+}
+function showDash(email){
+  document.getElementById('authSection').style.display='none';
+  document.getElementById('dashSection').style.display='block';
+  document.getElementById('userEmail').innerText=email;
+  document.getElementById('welcomeText').innerText="Logged in as: "+email;
+  generateLink();
+}
+function generateLink(){
+  let code=Math.random().toString(36).substring(2,8);
+  let email=localStorage.getItem('skate_user');
+  let link=`https://skatecart.github.io/Skatecart/?track=${code}&user=${email}`;
+  document.getElementById('genLink').innerText=link;
+}
+function copyLink(){
+  let t=document.getElementById('genLink').innerText;
+  navigator.clipboard.writeText(t);
+  alert("Link Copy Ho Gaya! Great!");
+}
+function logout(){
+  localStorage.removeItem('logged');
+  location.reload();
+}
+window.onload=function(){
+  if(localStorage.getItem('logged')=='yes'){
+    showDash(localStorage.getItem('skate_user'));
+  }
+}
+</script>
 </body>
 </html>
