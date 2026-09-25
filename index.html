@@ -1,38 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SkateCart - Walmart Deals Hub</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skatecart - Login</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f8fafc;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:15px}
+.box{background:white;width:100%;max-width:400px;padding:30px;border-radius:16px;border:1px solid #e2e8f0;box-shadow:0 10px 25px rgba(0,0,0,0.05)}
+.logo{text-align:center;font-size:26px;font-weight:800}
+.sub{text-align:center;color:#64748b;font-size:13px;margin:8px 0 25px}
+label{font-size:13px;font-weight:600;display:block;margin:15px 0 6px;color:#334155}
+input{width:100%;padding:12px 14px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px}
+.btn{width:100%;background:#0f172a;color:white;border:none;padding:12px;border-radius:8px;font-weight:700;margin-top:20px;cursor:pointer}
+.or{text-align:center;color:#94a3b8;font-size:12px;margin:20px 0;display:flex;align-items:center;gap:10px}
+.or:before,.or:after{content:"";flex:1;height:1px;background:#e2e8f0}
+.google{width:100%;padding:11px;border:1px solid #e2e8f0;background:white;border-radius:8px;font-weight:600;cursor:pointer}
+.bot{text-align:center;margin-top:20px;font-size:13px;color:#64748b}
+.bot b{color:#0f172a}
+</style>
 </head>
-<body class="bg-gray-50">
-<header class="bg-blue-600 text-white p-6 text-center">
-<h1 class="text-3xl font-bold">🛒 SkateCart</h1>
-<p>Walmart Best Deals - Live Updated</p>
-</header>
-<main class="p-4 max-w-5xl mx-auto">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-<div class="bg-white p-4 rounded-xl shadow">
-<img src="https://i5.walmartimages.com/seo/Apple-AirPods-2nd-Gen_9a0b0a0a.jpg" class="w-full h-40 object-contain">
-<h2 class="font-bold mt-2">Apple AirPods (2nd Gen) - 50% OFF</h2>
-<p class="text-green-600 font-bold">$69.00</p>
-<a href="https://www.walmart.com/search?q=airpods" target="_blank" class="block bg-blue-600 text-white text-center py-2 rounded mt-2">View on Walmart</a>
+<body>
+<div class="box">
+<div class="logo">Skatecart</div>
+<p class="sub">Welcome back! Please login to your account</p>
+<label>Email Address</label>
+<input type="email" placeholder="you@example.com">
+<label>Password</label>
+<input type="password" placeholder="••••••••">
+<button class="btn" onclick="window.location.href='dashboard.html'">Log In</button>
+<div class="or">OR</div>
+<button class="google">G Continue with Google</button>
+<p class="bot">Don't have an account? <b>Sign Up</b></p>
 </div>
-<div class="bg-white p-4 rounded-xl shadow">
-<img src="https://i5.walmartimages.com/seo/SAMSUNG-65-Class-QLED-4K-The-Frame_abc.jpg" class="w-full h-40 object-contain">
-<h2 class="font-bold mt-2">Samsung 65" QLED TV - Hot Deal</h2>
-<p class="text-green-600 font-bold">$599.00</p>
-<a href="https://www.walmart.com/search?q=samsung+tv" target="_blank" class="block bg-blue-600 text-white text-center py-2 rounded mt-2">View on Walmart</a>
-</div>
-<div class="bg-white p-4 rounded-xl shadow">
-<img src="https://i5.walmartimages.com/seo/Mainstays-Micromink-Sherpa-Throw_123.jpg" class="w-full h-40 object-contain">
-<h2 class="font-bold mt-2">Mainstays Blanket - Only $15</h2>
-<p class="text-green-600 font-bold">$15.00</p>
-<a href="https://www.walmart.com/search?q=blanket" target="_blank" class="block bg-blue-600 text-white text-center py-2 rounded mt-2">View on Walmart</a>
-</div>
-</div>
-</main>
-<footer class="text-center p-4 text-gray-500 text-sm">© 2025 SkateCart - Walmart Deals Hub</footer>
 </body>
 </html>
