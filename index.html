@@ -1,98 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Skatecart - Creators Hub</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SKATECART - Creator Affiliate</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
-body{background:#0a0a0a;color:white}
-.container{max-width:1000px;margin:40px auto;padding:20px}
-.card{background:#18181b;border:1px solid #27272a;border-radius:16px;padding:30px;margin-top:20px}
-input{width:100%;padding:14px;background:#09090b;border:1px solid #27272a;border-radius:10px;color:white;margin:10px 0}
-button{width:100%;padding:14px;background:white;color:black;border:none;border-radius:10px;font-weight:700;cursor:pointer;margin-top:10px}
-button:hover{opacity:0.9}
-.link-box{background:#09090b;padding:15px;border-radius:10px;border:1px dashed #3f3f46;word-break:break-all;margin:15px 0}
-.nav{display:flex;justify-content:space-between;align-items:center}
-.badge{background:#22c55e;color:black;padding:4px 10px;border-radius:20px;font-size:12px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Segoe UI,sans-serif}
+body{background:#f1f5f9;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
+.card{background:#fff;width:100%;max-width:480px;border-radius:24px;padding:32px 28px;box-shadow:0 20px 60px rgba(0,0,0,.08)}
+h1{font-size:34px;font-weight:800;color:#0f172a;letter-spacing:-1px}
+.sub{color:#64748b;margin:6px 0 24px;font-size:15px}
+.tabs{display:flex;background:#f1f5f9;border-radius:12px;padding:4px;margin-bottom:20px}
+.tab{flex:1;padding:10px;text-align:center;border-radius:8px;cursor:pointer;font-weight:600;color:#64748b}
+.tab.active{background:#fff;color:#0f172a;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+label{font-size:13px;font-weight:600;color:#334155;margin:12px 0 6px;display:block}
+input{width:100%;padding:13px 14px;border:1.5px solid #e2e8f0;border-radius:12px;outline:0;font-size:14px}
+input:focus{border-color:#0f8a8a}
+.row2{display:flex;gap:10px}.row2>div{flex:1}
+.btn{width:100%;background:#0f8a8a;color:#fff;border:0;padding:14px;border-radius:12px;font-weight:700;margin-top:18px;cursor:pointer}
+.btn2{background:#0f172a}
+.link{color:#0f8a8a;font-weight:600;text-decoration:none;cursor:pointer}
+.hide{display:none}
+.foot{margin-top:16px;text-align:center;color:#64748b;font-size:13px}
+.dash{display:none;background:#fff;width:100%;max-width:520px;border-radius:24px;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,.08)}
+.badge{background:#ecfdf5;color:#0f8a8a;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700}
+.box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin-top:14px}
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="nav">
-    <h2>SKATECART HUB</h2>
-    <span id="userEmail" class="badge">Not Logged In</span>
-  </div>
+<div id="auth" class="card">
+<div style="text-align:center;font-weight:900;margin-bottom:10px">🛹 SKATECART HUB</div>
+<h1 id="title">Welcome back</h1>
+<p id="subtitle" class="sub">Sign in to your creator account</p>
+<div class="tabs"><div id="t1" class="tab active" onclick="switchTab('login')">Sign In</div><div id="t2" class="tab" onclick="switchTab('register')">New Creator Register</div></div>
 
-  <div id="authSection" class="card">
-    <h2>Create Account</h2>
-    <p style="color:#a1a1aa;margin:10px 0">Apni personal Gmail se account banao</p>
-    <input id="email" type="email" placeholder="Apni Gmail likho - e.g. name@gmail.com">
-    <input id="password" type="password" placeholder="Apna Password banao">
-    <button onclick="signup()">Account Banao / Signup</button>
-    <button onclick="login()" style="background:#27272a;color:white">Login Karo</button>
-  </div>
+<div id="loginForm">
+<label>Email address</label><input id="l_email" placeholder="Enter your email">
+<div style="display:flex;justify-content:space-between"><label>Password</label><a class="link" style="font-size:12px;margin-top:12px">Forgot password?</a></div>
+<input id="l_pass" type="password" placeholder="Enter your password">
+<button class="btn" onclick="login()">Sign in</button>
+<p class="foot">New here? <a class="link" onclick="switchTab('register')">Create creator account</a></p>
+</div>
 
-  <div id="dashSection" class="card" style="display:none">
-    <h2>Welcome! 👋</h2>
-    <p id="welcomeText" style="color:#a1a1aa;margin:10px 0"></p>
-    
-    <h3 style="margin-top:20px">🔗 Apna Tracking Link Generator</h3>
-    <div class="link-box" id="genLink">Login ke baad link yahan ayegi...</div>
-    <button onclick="generateLink()">Naya Link Generate Karo</button>
-    <button onclick="copyLink()" style="background:#27272a;color:white">Link Copy Karo</button>
+<div id="regForm" class="hide">
+<div class="row2"><div><label>First Name</label><input id="f_name" placeholder="John"></div><div><label>Last Name</label><input id="l_name" placeholder="Doe"></div></div>
+<label>Email address</label><input id="r_email" placeholder="your@gmail.com">
+<label>Password</label><input id="r_pass" type="password" placeholder="Create password">
+<label style="margin-top:16px;color:#0f8a8a">💳 Meezan Bank Details (for payout)</label>
+<label>Account Title</label><input id="b_title" placeholder="Account holder name">
+<div class="row2"><div><label>Account Number</label><input id="b_acc" placeholder="0101xxxx"></div><div><label>IBAN</label><input id="b_iban" placeholder="PKxxMEZN..."></div></div>
+<button class="btn" onclick="register()">Create Account & Start Working</button>
+<p class="foot">Already have account? <a class="link" onclick="switchTab('login')">Sign in</a></p>
+</div>
+</div>
 
-    <button onclick="logout()" style="background:#ef4444;color:white;margin-top:30px">Logout</button>
-  </div>
+<div id="dash" class="dash">
+<div style="display:flex;justify-content:space-between;align-items:center"><h1 style="font-size:24px">Creator Hub</h1><span class="badge">Active</span></div>
+<p id="u_info" style="color:#64748b;margin:8px 0"></p>
+<div class="box"><b>👋 Welcome! آپ کام شروع کر سکتے ہو</b><p style="font-size:13px;color:#64748b;margin-top:6px">اپنا لنک شیئر کرو، ہر سیل پر کمیشن ملے گا۔ Payout میزان بینک میں 15th & 30th کو۔</p></div>
+<div class="box"><b>Your Meezan Bank</b><p id="bank_show" style="font-size:13px;margin-top:6px;color:#0f8a8a"></p></div>
+<div class="box"><b>Your Affiliate Tracking Link</b><input id="myLink" readonly style="margin-top:8px;background:#fff"><button class="btn btn2" style="padding:10px;margin-top:8px" onclick="copyLink()">Copy & Share Link</button>
+<div style="display:flex;gap:8px;margin-top:10px"><div style="flex:1;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800" id="clicks">0</div><div style="font-size:11px;color:#64748b">Clicks</div></div><div style="flex:1;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800">Rs. <span id="earn">0</span></div><div style="font-size:11px;color:#64748b">Earning</div></div></div>
+</div>
+<button onclick="logout()" style="width:100%;margin-top:14px;padding:12px;border-radius:12px;border:1px solid #e2e8f0;background:#fff;cursor:pointer">Logout</button>
 </div>
 
 <script>
-function signup(){
-  let e=document.getElementById('email').value;
-  let p=document.getElementById('password').value;
-  if(!e || !p){alert("Gmail aur Password likho bhai!");return}
-  localStorage.setItem('skate_user', e);
-  localStorage.setItem('skate_pass', p);
-  alert("Account ban gaya! Ab Login karo");
-  login();
+function switchTab(t){
+ if(t==='login'){loginForm.classList.remove('hide');regForm.classList.add('hide');t1.classList.add('active');t2.classList.remove('active');title.innerText='Welcome back';subtitle.innerText='Sign in to your creator account';}
+ else{regForm.classList.remove('hide');loginForm.classList.add('hide');t2.classList.add('active');t1.classList.remove('active');title.innerText='New Creator Register';subtitle.innerText='Join Skatecart Affiliate Portal';}
+}
+function register(){
+ const f=f_name.value.trim(), l=l_name.value.trim(), e=r_email.value.trim(), p=r_pass.value, bt=b_title.value, ba=b_acc.value, bi=b_iban.value;
+ if(!f||!l||!e||!p||!bt||!ba){alert('Please fill all fields');return;}
+ const user={fname:f,lname:l,email:e,pass:btoa(p),bank:{title:bt,acc:ba,iban:bi},earn:0,clicks:0};
+ localStorage.setItem('skate_user_'+e,JSON.stringify(user));
+ localStorage.setItem('skate_current',e);
+ showDash();
 }
 function login(){
-  let e=document.getElementById('email').value;
-  let p=document.getElementById('password').value;
-  let se=localStorage.getItem('skate_user');
-  let sp=localStorage.getItem('skate_pass');
-  if(e==se && p==sp){
-    localStorage.setItem('logged','yes');
-    showDash(e);
-  }else{ alert("Gmail ya Password galat hai bhai!"); }
-}
-function showDash(email){
-  document.getElementById('authSection').style.display='none';
-  document.getElementById('dashSection').style.display='block';
-  document.getElementById('userEmail').innerText=email;
-  document.getElementById('welcomeText').innerText="Logged in as: "+email;
-  generateLink();
-}
-function generateLink(){
-  let code=Math.random().toString(36).substring(2,8);
-  let email=localStorage.getItem('skate_user');
-  let link=`https://skatecart.github.io/Skatecart/?track=${code}&user=${email}`;
-  document.getElementById('genLink').innerText=link;
-}
-function copyLink(){
-  let t=document.getElementById('genLink').innerText;
-  navigator.clipboard.writeText(t);
-  alert("Link Copy Ho Gaya! Great!");
-}
-function logout(){
-  localStorage.removeItem('logged');
-  location.reload();
-}
-window.onload=function(){
-  if(localStorage.getItem('logged')=='yes'){
-    showDash(localStorage.getItem('skate_user'));
-  }
-}
-</script>
-</body>
-</html>
+ const e=l_email.value.trim(), p=l_pass.value.trim();
