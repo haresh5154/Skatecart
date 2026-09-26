@@ -10,33 +10,23 @@ body{margin:0;font-family:Inter,Arial;background:#f0faf9}
 .pGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.pItem{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px}
 .pItem b{font-size:9px;color:#5eead4;display:block;margin-bottom:4px;letter-spacing:.5px;text-transform:uppercase}
 .pItem span{font-size:16px;font-weight:900}
-.pItem.sale{border:1px solid rgba(250,204,21,.4);background:rgba(250,204,21,.1)}.pItem.sale b{color:#facc15}
-.progress{height:10px;background:rgba(255,255,255,.15);border-radius:20px;margin:16px 0;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,#2dd4bf,#facc15);border-radius:20px;transition:1s}
 .box{background:#fff;border-radius:20px;padding:18px;margin:12px 0;box-shadow:0 8px 25px rgba(0,0,0,.06);border:1px solid #eef2f2}
-.inp{width:100%;padding:15px;border:1.5px solid #d1d5db;border-radius:14px;box-sizing:border-box;font-size:15px;outline:none;margin-top:10px}.inp:focus{border-color:#14b8a6}
+.inp{width:100%;padding:15px;border:1.5px solid #d1d5db;border-radius:14px;box-sizing:border-box;font-size:15px;outline:none;margin-top:10px}
 .btn{width:100%;background:linear-gradient(90deg,#0f766e,#14b8a6);color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;font-size:16px;margin-top:12px;cursor:pointer}
-.linkArea{background:#f8fafc;border:1.5px dashed #99f6e0;border-radius:14px;padding:14px;margin:8px 0;word-break:break-all;text-align:center;font-weight:700;color:#0f766e;font-size:22px}
+.linkArea{background:#fef9c3;border:2px dashed #facc15;border-radius:14px;padding:14px;margin:8px 0;word-break:break-all;text-align:center;font-weight:800;color:#000;font-size:22px}
 .rCard{border:1.5px solid #e8ecec;border-radius:16px;padding:14px;margin:10px 0;background:#fff;display:flex;justify-content:space-between;align-items:center}
-.copyB{background:linear-gradient(90deg,#1e3a4a,#0d9488);color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:800;cursor:pointer}
+.copyB{background:#000;color:#fff;border:none;padding:12px 18px;border-radius:10px;font-weight:800;cursor:pointer}
 .drawer{position:fixed;top:0;right:-100%;width:85%;max-width:340px;height:100%;background:#fff;z-index:1000;transition:.35s;padding:22px;box-sizing:border-box}.drawer.open{right:0}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:999;display:none}.overlay.show{display:block}
 .mItem{padding:14px;border-radius:12px;margin:5px 0;font-weight:700;color:#334155;cursor:pointer;display:flex;align-items:center;gap:10px}.mItem.active{background:#e6fffe;color:#0f766e;border:1px solid #99f6e0}
 .page{display:none}.page.active{display:block}
 #loginPage{display:none;min-height:100vh;justify-content:center;align-items:center;padding:20px;box-sizing:border-box}
 #loginPage.active{display:flex}
 .loginBox{background:#fff;padding:26px;border-radius:22px;width:100%;max-width:380px;box-shadow:0 12px 35px rgba(0,0,0,.08);text-align:center;border:1px solid #eef2f2}
-#securePage{display:none;min-height:100vh;justify-content:center;align-items:center;flex-direction:column;background:#fff;color:#6b7280;text-align:center;font-family:sans-serif;padding:20px}
-.dot{animation:blink 1.2s infinite} @keyframes blink{0%{opacity:.2}20%{opacity:1}100%{opacity:.2}}
+#securePage{display:none;min-height:100vh;justify-content:center;align-items:center;flex-direction:column;background:#fff;color:#6b7280;text-align:center;padding:20px}
 </style></head><body>
-<div id="securePage">
-  <div style="font-size:36px;margin-bottom:20px">🔒</div>
-  <div style="font-weight:800;color:#111;margin-bottom:10px">Checking for traffic security</div>
-  <div id="secText1">Checking for traffic security <span class="dot">...</span></div><br>
-  <div id="secText2" style="display:none">Verifying your connection, please wait</div><br>
-  <div id="secText3" style="display:none">Redirecting...</div>
-</div>
-<div id="loginPage"><div class="loginBox"><div class="logo">Skate <span>Cart</span></div><h3>Create Account</h3><p style="font-size:12px;color:#64748b">Worldwide Access - Unlimited Accounts</p><input id="fName" class="inp" placeholder="First Name"><input id="lName" class="inp" placeholder="Last Name"><input id="lEmail" class="inp" placeholder="Email - example@gmail.com" type="email"><input id="lPass" class="inp" placeholder="Password - min 4 characters" type="password"><input id="fbLink" class="inp" placeholder="Facebook Group Link - Optional"><button class="btn" id="mainBtn" onclick="doLogin()">Create Account</button><p id="lMsg" style="font-size:12px;color:#ef4444;margin-top:10px;font-weight:700"></p><div id="oldAccounts" style="margin-top:18px;border-top:1px solid #eee;padding-top:12px;text-align:left"></div></div></div>
-<div id="mainApp" style="display:none"><div class="hd"><div class="logo">Skate <span>Cart</span></div><div style="font-size:28px;cursor:pointer" onclick="openMenu()">☰</div></div><div class="overlay" id="overlay" onclick="closeMenu()"></div><div class="drawer" id="drawer"><div style="display:flex;justify-content:space-between;align-items:center"><div class="logo" style="font-size:22px">Skate <span>Cart</span></div><span style="font-size:28px;cursor:pointer" onclick="closeMenu()">✕</span></div><div style="margin-top:20px"><div class="mItem active" onclick="showPage('links',this)">🔗 My Links</div><div class="mItem" onclick="showPage('analytics',this)">📊 Analytics</div><div class="mItem" onclick="showPage('payment',this)">💳 Payouts</div><div class="mItem" onclick="showPage('history',this)">📜 Payment History</div></div><div style="margin-top:25px;border-top:1px solid #eee;padding-top:16px"><div style="font-weight:800" id="uName">User</div><div style="font-size:13px;color:#64748b" id="uEmail">user@gmail.com</div><div style="margin-top:12px;background:#fef2f2;color:#ef4444;padding:10px;border-radius:10px;font-weight:800;text-align:center;cursor:pointer" onclick="signOut()">Sign out</div></div></div><div class="wrap"><div id="links" class="page active"><div class="payout"><div style="font-weight:900;font-size:18px">💳 Your Payout Dashboard</div><div class="pGrid"><div class="pItem"><b>Current Balance</b><span id="earn">$0.00</span></div><div class="pItem"><b>Total Clicks</b><span id="clicks">0</span></div><div class="pItem sale"><b>Total Sales</b><span id="sales">0 Sales</span></div><div class="pItem sale"><b>Sales Commission</b><span id="saleEarn">$0.00</span></div><div class="pItem"><b>Minimum Payout</b><span>$25.00</span></div><div class="pItem"><b>Status</b><span id="status" style="font-size:12px;color:#facc15">Pending</span></div></div><div class="progress"><div id="pBar" class="bar" style="width:0%"></div></div><div style="display:flex;justify-content:space-between;font-size:12px;color:#cbd5e1"><span>Next: <b id="next1" style="color:#fff">1st Oct</b></span><span>Then: <b id="next2" style="color:#fff">15th Oct</b></span></div><div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:12px;margin-top:14px;font-size:11px;line-height:1.5">⚠️ <b>System:</b> $0.25 per click + 10% commission per sale. First payout after 45 days verification. Payouts on 1st & 15th every month after $25 min. Unlimited earnings!</div></div><div class="box"><input id="wLink" class="inp" placeholder="Paste Walmart / Amazon Product Link..."><button id="genBtn" class="btn" onclick="makeLinks()">✨ Generate Earning Link</button></div><div id="readySec" style="display:none"><div class="box" style="background:#ecfdf5;text-align:center"><h3>🎉 Link Ready! Chhoti Link</h3><div class="linkArea" id="shortLink" style="background:#fef9c3;border-color:#facc15;color:#000"></div><button class="copyB" style="width:100%;padding:14px;background:#000" onclick="copyT('shortLink',this)">Copy & Share to Earn</button>
-<p id="longLinkShow" style="font-size:11px;color:#0f766e;margin-top:10px;word-break:break-all"></p></div></div><div class="box"><div style="font-weight:900;font-size:18px">🔗 Recent Links</div><div id="recent" style="margin-top:10px"></div></div></div><div id="analytics" class="page"><div class="box" style="text-align:center;padding:30px"><h2>📊 Analytics</h2><p>Clicks: <b id="aClicks">0</b></p><p>Sales: <b id="aSales">0</b></p><p>Earnings: <b id="aTotal">$0</b></p></div></div><div id="payment" class="page"><div class="box"><h2>💳 Payout Details</h2><p><b>Minimum:</b> $25.00</p><p><b>Next:</b> <span id="payDate">-</span></p><div style="background:#f0fdfa;padding:14px;border-radius:12px;margin-top:12px"><b>Status:</b> <span id="payStatus">Pending</span><br><br><div class="progress" style="background:#e2e8f0;margin:8px 0"><div id="payBar" class="bar" style="width:0%"></div></div></div></div></div><div id="history" class="page"><div class="box"><h2>📜 Payment History</h2><div id="histList" style="color:#64748b">No payouts yet.</div></div></div></div></div>
+<div id="securePage"><div style="font-size:36px">🔒</div><div style="font-weight:800;color:#111;margin:10px 0">Checking security...</div><div id="secText1">Verifying connection...</div></div>
+<div id="loginPage"><div class="loginBox"><div class="logo">Skate <span>Cart</span></div><h3>Create Account</h3><input id="fName" class="inp" placeholder="First Name"><input id="lName" class="inp" placeholder="Last Name"><input id="lEmail" class="inp" placeholder="Email" type="email"><input id="lPass" class="inp" placeholder="Password min 4" type="password"><button class="btn" id="mainBtn" onclick="doLogin()">Create Account</button><p id="lMsg" style="font-size:12px;color:#ef4444;margin-top:10px;font-weight:700"></p><div id="oldAccounts" style="margin-top:18px;border-top:1px solid #eee;padding-top:12px;text-align:left"></div></div></div>
+<div id="mainApp" style="display:none"><div class="hd"><div class="logo">Skate <span>Cart</span></div><div style="font-size:28px;cursor:pointer" onclick="openMenu()">☰</div></div><div class="overlay" id="overlay" onclick="closeMenu()"></div><div class="drawer" id="drawer"><div style="display:flex;justify-content:space-between;align-items:center"><div class="logo" style="font-size:22px">Skate <span>Cart</span></div><span style="font-size:28px;cursor:pointer" onclick="closeMenu()">✕</span></div><div style="margin-top:20px"><div class="mItem active" onclick="showPage('links',this)">🔗 My Links</div><div class="mItem" onclick="showPage('analytics',this)">📊 Analytics</div><div class="mItem" onclick="showPage('payment',this)">💳 Payouts</div></div><div style="margin-top:25px;border-top:1px solid #eee;padding-top:16px"><div style="font-weight:800" id="uName">User</div><div style="font-size:13px;color:#64748b" id="uEmail">user@gmail.com</div><div style="margin-top:12px;background:#fef2f2;color:#ef4444;padding:10px;border-radius:10px;font-weight:800;text-align:center;cursor:pointer" onclick="signOut()">Sign out</div></div></div><div class="wrap"><div id="links" class="page active"><div class="box"><input id="wLink" class="inp" placeholder="Paste Walmart / Amazon Link..."><button id="genBtn" class="btn" onclick="makeLinks()">✨ Generate Earning Link</button></div><div id="readySec" style="display:none"><div class="box" style="background:#ecfdf5;text-align:center"><h3>🎉 Link Ready! Chhoti Link</h3><div class="linkArea" id="shortLink"></div><button class="copyB" style="width:100%;padding:14px" onclick="copyT('shortLink',this)">Copy Chhoti Link & Share</button><p id="longLinkShow" style="font-size:11px;color:#0f766e;margin-top:10px"></p></div></div><div class="box"><div style="font-weight:900">🔗 Recent Links</div><div id="recent" style="margin-top:10px"></div></div></div><div id="analytics" class="page"><div class="box" style="text-align:center;padding:30px"><h2>📊 Analytics</h2><p>Clicks: <b id="aClicks">0</b></p><p>Earnings: <b id="aTotal">$0</b></p></div></div><div id="payment" class="page"><div class="box"><h2>💳 Payouts</h2><p>Next Payout</p><p id="payDate">-</p></div></div></div></div>
 <script>
 emailjs.init("y5qo1fs87tL0pZihp");
 function openMenu(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('show')}
@@ -47,107 +37,75 @@ function checkAuth(){
   let savedUser=localStorage.getItem('skate_current');
   let allUsers=JSON.parse(localStorage.getItem('skate_all_users')||'[]');
   let oldDiv=document.getElementById('oldAccounts');
-  if(oldDiv){
-    if(allUsers.length>0){
-      let h='<div style="font-size:11px;font-weight:800;margin-bottom:8px;color:#0e7490">Saved accounts on this device:</div>';
-      allUsers.forEach(u=>{h+=`<div style="display:flex;justify-content:space-between;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;padding:8px 10px;border-radius:10px;margin-bottom:6px"><div style="font-size:11px;font-weight:700">${u.email}</div><button onclick="quickLogin('${u.email}')" style="background:#0f766e;color:#fff;border:none;padding:6px 12px;border-radius:7px;font-weight:800;font-size:11px;cursor:pointer">Login</button></div>`});
-      oldDiv.innerHTML=h;
-    }else oldDiv.innerHTML='';
+  if(oldDiv && allUsers.length>0){
+    let h='<div style="font-size:11px;font-weight:800;margin-bottom:8px;color:#0e7490">Saved accounts:</div>';
+    allUsers.forEach(u=>{h+=`<div style="display:flex;justify-content:space-between;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;padding:8px 10px;border-radius:10px;margin-bottom:6px"><div style="font-size:11px;font-weight:700">${u.email}</div><button onclick="quickLogin('${u.email}')" style="background:#0f766e;color:#fff;border:none;padding:6px 12px;border-radius:7px;font-weight:800;font-size:11px;cursor:pointer">Login</button></div>`});
+    oldDiv.innerHTML=h;
   }
-  if(savedUser){
-    cur=JSON.parse(savedUser);
-    document.getElementById('loginPage').classList.remove('active');
-    document.getElementById('mainApp').style.display='block';
-    document.getElementById('uEmail').innerText=cur.email;
-    document.getElementById('uName').innerText=cur.name||cur.email.split('@')[0];
-    loadR();
-  }else{
-    document.getElementById('loginPage').classList.add('active');
-    document.getElementById('mainApp').style.display='none';
-  }
+  if(savedUser){cur=JSON.parse(savedUser);document.getElementById('loginPage').classList.remove('active');document.getElementById('mainApp').style.display='block';document.getElementById('uEmail').innerText=cur.email;document.getElementById('uName').innerText=cur.name||cur.email.split('@')[0];loadR();}else{document.getElementById('loginPage').classList.add('active');document.getElementById('mainApp').style.display='none';}
 }
 function quickLogin(email){let allUsers=JSON.parse(localStorage.getItem('skate_all_users')||'[]');let u=allUsers.find(x=>x.email.toLowerCase()===email.toLowerCase());if(u){localStorage.setItem('skate_current',JSON.stringify({email:u.email,name:u.name}));checkAuth();}}
 function doLogin(){
-  let f=document.getElementById('fName').value.trim();
-  let l=document.getElementById('lName').value.trim();
-  let email=document.getElementById('lEmail').value.toLowerCase().trim();
-  let pass=document.getElementById('lPass').value.trim();
-  let fb=document.getElementById('fbLink').value.trim();
-  let msg=document.getElementById('lMsg');
-  if(!f){msg.innerText='Please enter First Name';return;}
-  if(!email.includes('@')||!email.includes('.')){msg.innerText='Please enter valid Email';return;}
-  if(pass.length<4){msg.innerText='Password must be at least 4 characters';return;}
-  let fullName = f + (l? " " + l : "");
-  let allUsers=JSON.parse(localStorage.getItem('skate_all_users')||'[]');
-  let exists=allUsers.find(u=>(u.email||'').toLowerCase()===email);
-  if(exists){
-    if(exists.password && exists.password!==pass){msg.innerText='Wrong password!';return;}
-    localStorage.setItem('skate_current',JSON.stringify({email:exists.email,name:exists.name}));
-    msg.innerText='';checkAuth();return;
-  }
-  document.getElementById('mainBtn').innerText='Approving & Sending Email...';
-  emailjs.send("service_wxtih9l","template_qrvny1f",{to_name: fullName,to_email: email,user_email: email,user_name: fullName,message: "Congratulations " + fullName + "! Your SkateCart PRO account has been APPROVED. You can now start work, your earning has started! $0.25 per click + 10% sale commission. Payout on 1st & 15th after $25. Login: https://skatecart.github.io/Skatecart/ - Team SkateCart"}).then(function(){}, function(err){});
-  allUsers.push({email:email,name:fullName,firstName:f,lastName:l,password:pass,fbGroup:fb,createdAt:new Date().toISOString()});
-  localStorage.setItem('skate_all_users',JSON.stringify(allUsers));
-  localStorage.setItem('skate_current',JSON.stringify({email:email,name:fullName}));
-  msg.style.color='green';
-  msg.innerText='Approved! Approval Email sent to your Gmail. Check Spam folder also.';
-  setTimeout(()=>{checkAuth();},1500);
+  let f=document.getElementById('fName').value.trim();let l=document.getElementById('lName').value.trim();let email=document.getElementById('lEmail').value.toLowerCase().trim();let pass=document.getElementById('lPass').value.trim();let msg=document.getElementById('lMsg');
+  if(!f){msg.innerText='First Name likho';return;} if(!email.includes('@')){msg.innerText='Valid Email likho';return;} if(pass.length<4){msg.innerText='Password 4 se zyada';return;}
+  let fullName=f+(l?" "+l:""); let allUsers=JSON.parse(localStorage.getItem('skate_all_users')||'[]'); let exists=allUsers.find(u=>u.email.toLowerCase()===email);
+  if(exists){localStorage.setItem('skate_current',JSON.stringify({email:exists.email,name:exists.name}));checkAuth();return;}
+  allUsers.push({email:email,name:fullName,password:pass}); localStorage.setItem('skate_all_users',JSON.stringify(allUsers)); localStorage.setItem('skate_current',JSON.stringify({email:email,name:fullName})); checkAuth();
 }
-function signOut(){if(confirm('Logout? Account will be saved.')){localStorage.removeItem('skate_current');checkAuth();}}
+function signOut(){localStorage.removeItem('skate_current');checkAuth();}
 
+// FINAL FIXED - CHHOTI LINK 100%
 async function makeLinks(){
   let o=document.getElementById('wLink').value.trim();
-  if(!o) return alert("Please paste a link");
+  if(!o) return alert("Link paste karo bhai");
   if(!o.startsWith('http')) o='https://'+o;
   let btn=document.getElementById('genBtn');
   btn.innerText="Chhoti Link Ban Rahi Hai...";
+
   let encoded = btoa(unescape(encodeURIComponent(o)));
   let pakiLink = location.origin+location.pathname+"?r="+encoded;
+
   let tiny = "";
   try{
-    let res = await fetch("https://is.gd/create.php?format=simple&url="+encodeURIComponent(pakiLink));
-    let txt = await res.text();
-    if(txt.trim().startsWith("https://")) tiny = txt.trim();
+    let longEnc = encodeURIComponent(pakiLink);
+    let api1 = `https://is.gd/create.php?format=simple&url=${longEnc}`;
+    let proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(api1)}`;
+    let res = await fetch(proxy);
+    let txt = (await res.text()).trim();
+    if(txt.startsWith("https://")) tiny = txt;
   }catch(e){}
+
   if(!tiny){
     try{
-      let res2 = await fetch("https://tinyurl.com/api-create.php?url="+encodeURIComponent(pakiLink));
-      let txt2 = await res2.text();
-      if(txt2.trim().startsWith("https://")) tiny = txt2.trim();
+      let api2 = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(pakiLink)}`;
+      let proxy2 = `https://api.allorigins.win/raw?url=${encodeURIComponent(api2)}`;
+      let r2 = await fetch(proxy2);
+      let txt2 = (await r2.text()).trim();
+      if(txt2.startsWith("http")) tiny = txt2;
     }catch(e){}
   }
+
   if(!tiny) tiny = pakiLink;
+
   let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');
-  all.push({original:o,shortLink:tiny,longLink:pakiLink,encoded:encoded,owner:cur.email,clicks:0,sales:0,saleAmount:0,date:new Date().toLocaleDateString('en-GB'),createdAt:Date.now()});
+  all.push({original:o,shortLink:tiny,longLink:pakiLink,encoded:encoded,owner:cur.email,clicks:0,date:new Date().toLocaleDateString('en-GB'),createdAt:Date.now()});
   localStorage.setItem('skate_all_links',JSON.stringify(all));
+
   document.getElementById('shortLink').innerText=tiny;
-  document.getElementById('longLinkShow').innerText="✅ Chhoti Link Ready! Kabhi Expire Nahi Hogi - Worldwide Working";
+  document.getElementById('longLinkShow').innerText="✅ Yehi Chhoti Link Hai! Andar Perfect Brand Hai - Kabhi Expire Nahi Hogi";
   document.getElementById('readySec').style.display='block';
   loadR();
   btn.innerText="✨ Generate Earning Link";
 }
-function loadR(){if(!cur) return; let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');let mine=all.filter(x=>x.owner===cur.email).reverse();let clicks=mine.reduce((a,b)=>a+(b.clicks||0),0);let sales=mine.reduce((a,b)=>a+(b.sales||0),0);let saleComm=mine.reduce((a,b)=>a+(b.saleAmount||0),0);let clickEarn=clicks*0.25;let total=clickEarn+saleComm;document.getElementById('clicks').innerText=clicks;document.getElementById('sales').innerText=sales+" Sales";document.getElementById('saleEarn').innerText="$"+saleComm.toFixed(2);document.getElementById('earn').innerText="$"+total.toFixed(2);document.getElementById('aClicks').innerText=clicks;document.getElementById('aSales').innerText=sales;document.getElementById('aTotal').innerText="$"+total.toFixed(2);document.getElementById('pBar').style.width=Math.min((total/25)*100,100)+"%";document.getElementById('payBar').style.width=Math.min((total/25)*100,100)+"%";let st=total>=25?"Ready":"Pending 45 Days";document.getElementById('status').innerText=st;document.getElementById('payStatus').innerText=st;let now=new Date();let y=now.getFullYear(),m=now.getMonth();let d1=new Date(y,m,1),d15=new Date(y,m,15);let n1,n2;if(now>d15){n1=new Date(y,m+1,1);n2=new Date(y,m+1,15);}else if(now>d1){n1=d15;n2=new Date(y,m+1,1);}else{n1=d1;n2=d15;}let fmt=(d)=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});document.getElementById('next1').innerText=fmt(n1);document.getElementById('next2').innerText=fmt(n2);document.getElementById('payDate').innerText=fmt(n1);let h="";mine.forEach((mm)=>{h+=`<div class="rCard"><div><div style="font-weight:800;font-size:12px;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${mm.shortLink}</div><div style="font-size:11px;color:#64748b;margin-top:3px">${mm.date} • ${mm.clicks} clicks</div></div><button class="copyB" onclick="copyRecent(this,'${mm.shortLink}')">Copy</button></div>`;});document.getElementById('recent').innerHTML=h||"<p style='text-align:center;color:#999'>No links yet</p>";}
-function copyT(id,btn){navigator.clipboard.writeText(document.getElementById(id).innerText);let b=btn||event.target;let old=b.innerText;b.innerText="✅ Copied!";b.style.background="#0f766e";setTimeout(()=>{b.innerText=old;b.style.background="";},1500);}
+
+function loadR(){if(!cur) return; let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');let mine=all.filter(x=>x.owner===cur.email).reverse();let h="";mine.forEach((mm)=>{h+=`<div class="rCard"><div><div style="font-weight:800;font-size:12px;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${mm.shortLink}</div><div style="font-size:11px;color:#64748b;margin-top:3px">${mm.date}</div></div><button class="copyB" onclick="copyRecent(this,'${mm.shortLink}')">Copy</button></div>`;});document.getElementById('recent').innerHTML=h||"<p style='text-align:center;color:#999'>No links yet</p>";}
+function copyT(id,btn){navigator.clipboard.writeText(document.getElementById(id).innerText);let b=btn;let old=b.innerText;b.innerText="✅ Copied!";setTimeout(()=>b.innerText=old,1500);}
 function copyRecent(btn,link){navigator.clipboard.writeText(link);let old=btn.innerText;btn.innerText="✅";setTimeout(()=>btn.innerText=old,1500);}
-(async function(){
-  let p=new URLSearchParams(location.search);
-  let r=p.get('r');
-  if(!r) return;
-  document.getElementById('loginPage').style.display='none';
-  document.getElementById('mainApp').style.display='none';
-  let sec=document.getElementById('securePage');
-  sec.style.display='flex';
-  setTimeout(()=>{document.getElementById('secText2').style.display='block';},500);
-  setTimeout(()=>{document.getElementById('secText3').style.display='block';},1000);
-  let finalUrl=null;
-  try{finalUrl=decodeURIComponent(escape(atob(r)));}catch(e){try{finalUrl=atob(r);}catch(e2){}}
-  if(finalUrl){
-    let allLinks=JSON.parse(localStorage.getItem('skate_all_links')||'[]');
-    let idx=allLinks.findIndex(x=>x.encoded===r);
-    if(idx>-1){allLinks[idx].clicks=(allLinks[idx].clicks||0)+1;localStorage.setItem('skate_all_links',JSON.stringify(allLinks));}
-    setTimeout(()=>{location.replace(finalUrl);},1400);
-  }
+(function(){
+  let p=new URLSearchParams(location.search);let r=p.get('r');if(!r) return;
+  document.getElementById('loginPage').style.display='none';document.getElementById('mainApp').style.display='none';document.getElementById('securePage').style.display='flex';
+  let finalUrl=null;try{finalUrl=decodeURIComponent(escape(atob(r)));}catch(e){try{finalUrl=atob(r);}catch(e2){}}
+  if(finalUrl){setTimeout(()=>{location.replace(finalUrl);},1200);}
 })();
 checkAuth();
 </script></body></html>
