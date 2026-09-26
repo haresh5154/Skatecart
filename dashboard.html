@@ -1,40 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dashboard - Skatecart</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script> emailjs.init("y5qo1fs87tL0pZihp"); </script>
 <style>
-body{margin:0;font-family:sans-serif;background:#f8fafc;display:flex}
-.s{width:220px;background:#0f172a;color:white;min-height:100vh;padding:20px}
-.s h3{margin:0 0 20px 0}
-.s p{padding:10px;color:#94a3b8;font-size:14px;border-radius:8px}
-.s p.a{background:#1e293b;color:white}
-.m{flex:1;padding:25px}
-.c{background:white;padding:20px;border-radius:12px;border:1px solid #e2e8f0;margin-top:15px}
-table{width:100%;border-collapse:collapse;margin-top:10px}
-th,td{padding:12px;text-align:left;border-bottom:1px solid #eee;font-size:13px}
-.b{background:#dcfce7;color:#16a34a;padding:4px 10px;border-radius:20px;font-size:11px}
+body{margin:0;font-family:sans-serif;background:#f1f5f9}
+.s{width:220px;background:#0f172a;color:white;position:fixed;height:100vh;padding:20px}
+.m{margin-left:260px;padding:25px}
+.c{background:white;padding:20px;border-radius:10px}
+table{width:100%;border-collapse:collapse;margin-top:15px}
+th,td{padding:12px;text-align:left;border-bottom:1px solid #ddd}
+.b{background:#dcfce7;color:#16a34a;padding:6px 12px;border:none;border-radius:6px;cursor:pointer}
+.b2{background:#fee2e2;color:#dc2626;padding:6px 12px;border:none;border-radius:6px;cursor:pointer}
 </style>
 </head>
 <body>
-<div class="s">
-<h3>Skatecart</h3>
-<p class="a">📊 Dashboard</p>
-<p>💳 Payments</p>
-<p>⚙️ Settings</p>
-<p onclick="location.href='index.html'" style="margin-top:200px;cursor:pointer">🚪 Logout</p>
-</div>
+<div class="s"><h3>Skatecart</h3><p>Dashboard</p></div>
 <div class="m">
-<h2>Payment History</h2>
-<p style="color:#888;font-size:13px">Your recent transactions</p>
 <div class="c">
-<table>
-<tr><th>Date</th><th>Amount</th><th>Status</th><th>Method</th></tr>
-<tr><td>25 Sep 2026</td><td>$49.00</td><td><span class="b">Paid</span></td><td>Stripe</td></tr>
-<tr><td>20 Sep 2026</td><td>$99.00</td><td><span class="b">Paid</span></td><td>PayPal</td></tr>
-</table>
+<h2>Pending Approvals</h2>
+<table id="tbl"><tr><th>Name</th><th>Email</th><th>Action</th></tr></table>
 </div>
 </div>
-</div>
+<script>
+let users = JSON.parse(localStorage.getItem('pendingUsers') || '[{"name":"Test User","email":"test@gmail.com"}]');
+let tbl=document.getElementById('tbl');
+function render(){
+ tbl.innerHTML='<tr><th>Name</th><th>Email</th><th>Action</th></tr>';
+ users.forEach((u,i)=>{
+  tbl.innerHTML+=`<tr><td>${u.name}</td><td>${u.email}</td><td><button class=b onclick="approve(${i})">Approve</button> <button class=b2 onclick="reject(${i})">Reject</button></td></tr>`;
+ });
+}
+function approve(i){
+ let u=users[i];
+ emailjs.send("service_wxtih9l","template_qrvny1f",{
+  user_name: u.name,
+  to_email: u.email,
+  to_name: u.name
+ }).then(()=>{
+  alert(u.email + " ko email chali gayi!");
+  users.splice(i,1);
+  localStorage.setItem('pendingUsers',JSON.stringify(users));
+  render();
+ }).catch(e=>{alert("Error: "+JSON.stringify(e))});
+}
+function reject(i){
+ users.splice(i,1);
+ localStorage.setItem('pendingUsers',JSON.stringify(users));
+ render();
+}
+render();
+</script>
 </body>
 </html>
