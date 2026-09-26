@@ -1,65 +1,81 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Creator Hub - Walmart Style</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skatecart - Walmart Deals Hub</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init("y5qo1fs87tL0pZihp");</script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#f1f5f9;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:16px}
-.card{background:#fff;width:100%;max-width:480px;border-radius:22px;padding:28px;box-shadow:0 10px 40px rgba(0,0,0,.08)}
-.tabs{display:flex;background:#eef2f7;border-radius:12px;padding:4px;margin:16px 0}
-.tab{flex:1;padding:11px;text-align:center;border-radius:10px;font-weight:800;cursor:pointer;color:#64748b}
-.tab.active{background:#fff;color:#111;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-label{font-size:13px;font-weight:600;margin:10px 0 4px;display:block}
-input{width:100%;padding:12px;border:1.5px solid #e2e8f0;border-radius:10px}
-.btn{width:100%;background:#0e8a8a;color:#fff;border:0;padding:13px;border-radius:12px;font-weight:800;margin-top:14px;cursor:pointer}
-.hide{display:none!important}
-</style></head><body>
+body{font-family:Arial,sans-serif;margin:0;background:#f6f6f6}
+header{background:#000;color:#fff;padding:15px;text-align:center;font-size:22px;font-weight:bold}
+.container{max-width:900px;margin:20px auto;padding:15px}
+.card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.08);margin-bottom:20px}
+input{width:100%;padding:13px;margin:8px 0;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
+button{width:100%;padding:14px;background:#000;color:#fff;border:none;border-radius:8px;font-weight:bold;font-size:16px;cursor:pointer}
+button:active{transform:scale(0.98)}
+.deal{background:#fff;border-radius:10px;padding:15px;display:flex;gap:15px;align-items:center;margin-bottom:15px}
+.deal img{width:80px;height:80px;object-fit:cover;border-radius:8px}
+.badge{background:#0071dc;color:#fff;padding:4px 8px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<header>SKATECART 🛹 - Walmart Deals Hub</header>
 
-<div class="card" id="auth">
-<h2 style="text-align:center">🛒 CREATOR HUB</h2>
-<h1 id="h1">Welcome back</h1>
-<p style="color:#64748b;font-size:13px;margin-bottom:12px" id="sub">Sign in to your account</p>
+<div class="container">
+  <div class="card">
+    <h2 style="margin-top:0">Become a Creator & Earn</h2>
+    <p>Share Walmart deals and earn commission. No bank needed!</p>
+    <input type="text" id="cName" placeholder="Full Name">
+    <input type="email" id="cEmail" placeholder="Email Address">
+    <input type="text" id="cGroup" placeholder="WhatsApp / Facebook Group Link">
+    <div style="display:flex;align-items:center;margin:12px 0;gap:8px">
+      <input type="checkbox" id="cTerms" style="width:18px;height:18px;margin:0">
+      <label for="cTerms">I agree to SkateCart Terms & Conditions ✅</label>
+    </div>
+    <button onclick="createCreator()">Create Account & Get Approved</button>
+    <p id="msg" style="text-align:center;font-weight:bold"></p>
+  </div>
 
-<div class="tabs">
-<div id="t1" class="tab active" onclick="openLogin()">Sign In</div>
-<div id="t2" class="tab" onclick="openReg()">New Creator Register</div>
-</div>
-
-<div id="login">
-<label>Email</label><input id="LE" placeholder="Email">
-<label>Password</label><input id="LP" type="password" placeholder="Password">
-<button class="btn" onclick="loginNow()">Sign in</button>
-<p style="text-align:center;margin-top:10px;font-size:13px;color:#64748b">New here? <span style="color:#0e8a8a;font-weight:800;cursor:pointer" onclick="openReg()">Create account</span></p>
-</div>
-
-<div id="reg" class="hide">
-<label>First Name</label><input id="FN" placeholder="John"><label>Last Name</label><input id="LN" placeholder="Doe">
-<label>Email</label><input id="RE" placeholder="you@gmail.com">
-<label>Password</label><input id="RP" type="password" placeholder="Create password">
-<label style="color:#0e8a8a;margin-top:12px">💳 Meezan Bank for Payout</label>
-<label>Account Title</label><input id="BT" placeholder="Your name">
-<label>Account Number</label><input id="BA" placeholder="0101xxxx">
-<label>IBAN</label><input id="BI" placeholder="PK...">
-<button class="btn" onclick="regNow()">Create Account & Start Walmart Work</button>
-<p style="text-align:center;margin-top:10px;font-size:13px;color:#64748b">Already have? <span style="color:#0e8a8a;font-weight:800;cursor:pointer" onclick="openLogin()">Sign in</span></p>
-</div>
-</div>
-
-<div class="card hide" id="dash">
-<h1>Welcome Creator ✅</h1><p id="uinfo" style="color:#64748b;margin:8px 0"></p>
-<div style="background:#f8fafc;border:1px solid #e2e8f0;padding:12px;border-radius:12px">
-<b>Your Walmart Tracking Link</b><input id="link" readonly style="margin-top:8px">
-<button class="btn" style="background:#111" onclick="navigator.clipboard.writeText(document.getElementById('link').value);alert('Link Copied! Share karo')">Copy Link</button>
-<p id="bank" style="color:#0e8a8a;font-weight:700;margin-top:8px;font-size:13px"></p>
-</div>
-<button class="btn" style="background:#fff;color:#111;border:1.5px solid #e2e8f0" onclick="localStorage.removeItem('cur');location.reload()">Logout</button>
+  <h3>🔥 Today's Deals</h3>
+  <div class="deal">
+    <img src="https://i5.walmartimages.com/seo/placeholder" onerror="this.src='https://via.placeholder.com/80'">
+    <div>
+      <div class="badge">HOT DEAL</div>
+      <div style="font-weight:bold;margin-top:5px">Walmart Gift Card $100 - Save Big</div>
+      <div style="color:#007600">In Stock - Creator Commission 10%</div>
+    </div>
+  </div>
 </div>
 
 <script>
-function openLogin(){document.getElementById('login').classList.remove('hide');document.getElementById('reg').classList.add('hide');document.getElementById('t1').classList.add('active');document.getElementById('t2').classList.remove('active');document.getElementById('h1').innerText='Welcome back';}
-function openReg(){document.getElementById('reg').classList.remove('hide');document.getElementById('login').classList.add('hide');document.getElementById('t2').classList.add('active');document.getElementById('t1').classList.remove('active');document.getElementById('h1').innerText='New Creator Register';}
-function regNow(){if(!FN.value||!RE.value||!RP.value){alert('Fill all');return}let u={f:FN.value,l:LN.value,e:RE.value,p:btoa(RP.value),b:{t:BT.value,a:BA.value,i:BI.value}};localStorage.setItem('cr_'+u.e,JSON.stringify(u));localStorage.setItem('cur',u.e);showDash()}
-function loginNow(){let d=localStorage.getItem('cr_'+LE.value);if(!d){alert('No account, Register karo');openReg();return}if(JSON.parse(d).p!==btoa(LP.value)){alert('Wrong password');return}localStorage.setItem('cur',LE.value);showDash()}
-function showDash(){let c=localStorage.getItem('cur');let u=JSON.parse(localStorage.getItem('cr_'+c));auth.classList.add('hide');dash.classList.remove('hide');uinfo.innerText=u.f+' '+u.l+' ('+u.e+')';bank.innerText='Meezan: '+u.b.t+' | '+u.b.a;link.value=location.origin+location.pathname+'?ref='+btoa(u.e)}
-if(localStorage.getItem('cur')){showDash()}
+function createCreator(){
+  const name = document.getElementById("cName").value.trim();
+  const email = document.getElementById("cEmail").value.trim();
+  const groupLink = document.getElementById("cGroup").value.trim();
+  const terms = document.getElementById("cTerms").checked;
+  const msg = document.getElementById("msg");
+
+  if(!name || !email || !groupLink){alert("Please fill all fields"); return;}
+  if(!terms){alert("Please tick Terms box ✅"); return;}
+
+  msg.style.color="orange";
+  msg.innerText="Approving your account... Please wait ⏳";
+
+  emailjs.send("service_wxtih9l","template_qrvny1f",{
+    to_name: name,
+    to_email: email,
+    group_link: groupLink
+  }).then(()=>{
+    msg.style.color="green";
+    msg.innerText="Approved! Email sent to "+email+" ✅ Check your inbox!";
+    localStorage.setItem("creator_email", email);
+    localStorage.setItem("creator_name", name);
+  },(error)=>{
+    msg.style.color="red";
+    msg.innerText="Failed: "+JSON.stringify(error);
+  });
+}
 </script>
-</body></html>
+</body>
+</html>
