@@ -1,142 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skatecart Hub - Deals & Clearance</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
-        }
-        header {
-            background: #0071dc;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-        header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 15px;
-        }
-        .deals-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .deal-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s;
-        }
-        .deal-card:hover {
-            transform: translateY(-5px);
-        }
-        .deal-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background-color: #eee;
-        }
-        .deal-content {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-        .deal-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #222;
-        }
-        .deal-price {
-            font-size: 18px;
-            font-weight: bold;
-            color: #d9534f;
-            margin-bottom: 15px;
-        }
-        .deal-btn {
-            margin-top: auto;
-            display: block;
-            text-align: center;
-            background: #ffc220;
-            color: #111;
-            padding: 10px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-        .deal-btn:hover {
-            background: #e0aa1b;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #777;
-            font-size: 13px;
-            margin-top: 40px;
-            border-top: 1px solid #ddd;
-        }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SkateCart</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;800;900&display=swap');
+*{box-sizing:border-box;font-family:Inter,Arial}
+body{margin:0;background:#f0faf9}
+.hd{padding:12px 16px;background:#fff;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:9;border-bottom:1px solid #e5ecec}
+.logo{font-weight:900;font-size:24px;color:#facc15}.logo span{color:#0e7490}
+.wrap{max-width:600px;margin:0 auto;padding:10px}
+.box{background:#fff;border-radius:18px;padding:16px;margin:10px 0;box-shadow:0 6px 20px rgba(0,0,0,.06);border:1px solid #eef2f2}
+.inp{width:100%;padding:14px;border:1.5px solid #d1d5db;border-radius:12px;font-size:15px;margin-top:10px;outline:none}
+.btn{width:100%;background:linear-gradient(90deg,#0f766e,#14b8a6);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:900;font-size:16px;margin-top:10px;cursor:pointer}
+.linkArea{background:#fef9c3;border:2px dashed #facc15;border-radius:12px;padding:12px;margin:8px 0;word-break:break-all;text-align:center;font-weight:800;color:#000}
+</style>
+<script>
+// Visitor Logic -?CODE ya?r= aaye to dashboard kabhi nahi dikhega
+(function(){
+  let s=location.search; if(!s) return;
+  let p=new URLSearchParams(s); let r=p.get('r');
+  let q=s.replace('?','').split('&')[0].replace('s=','');
+  let isVisitor = r || (q && q.length>=4 && q.length<=10);
+  if(!isVisitor) return;
+  document.addEventListener('DOMContentLoaded',()=>{
+    document.body.innerHTML='<div style="display:flex;min-height:100vh;justify-content:center;align-items:center;flex-direction:column;background:#fff;text-align:center"><div style="font-size:40px">🔒</div><div style="font-weight:900;margin:10px 0">Checking security...</div><div style="color:#888">Redirecting...</div></div>';
+    let finalUrl=null;
+    if(r){ try{finalUrl=decodeURIComponent(escape(atob(r)));}catch(e){try{finalUrl=atob(r);}catch(e2){}} if(finalUrl){location.replace(finalUrl); return;} }
+    try{
+      let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');
+      let f=all.find(x=>x.sCode===q);
+      if(f){ try{finalUrl=decodeURIComponent(escape(atob(f.encoded)));}catch(e){finalUrl=f.original;} if(finalUrl) location.replace(finalUrl); }
+    }catch(e){}
+  });
+})();
+</script>
 </head>
 <body>
-
-    <header>
-        <h1>Skatecart Hub</h1>
-        <p>Best Clearance Deals & Daily Finds</p>
-    </header>
-
-    <div class="container">
-        <div class="deals-grid" id="productsContainer">
-            <!-- Product 1 -->
-            <div class="deal-card">
-                <img src="https://via.placeholder.com/300x200" alt="Product Image" class="deal-img">
-                <div class="deal-content">
-                    <div class="deal-title">Yahan Apne Product Ka Naam Likhein</div>
-                    <div class="deal-price">$19.99 <span style="text-decoration: line-through; color: #999; font-size: 14px;">$49.99</span></div>
-                    <!-- Yahan apna Walmart ya Affiliate link lagayein -->
-                    <a href="YOUR_WALMART_AFFILIATE_LINK_HERE" target="_blank" class="deal-btn">Grab Deal at Walmart</a>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="deal-card">
-                <img src="https://via.placeholder.com/300x200" alt="Product Image" class="deal-img">
-                <div class="deal-content">
-                    <div class="deal-title">Dusra Product Ka Naam</div>
-                    <div class="deal-price">$9.99</div>
-                    <a href="YOUR_WALMART_AFFILIATE_LINK_HERE" target="_blank" class="deal-btn">Grab Deal at Walmart</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        &copy; 2026 Skatecart Hub. All rights reserved.
-    </footer>
-
+<div class="hd"><div class="logo">Skate <span>Cart</span></div></div>
+<div class="wrap">
+<div class="box" style="background:#0f172a;color:white;border-radius:20px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div style="background:rgba(255,255,255,.1);padding:12px;border-radius:14px"><div style="font-size:10px;color:#5eead4">BALANCE</div><div style="font-weight:900;font-size:18px">$0.50</div></div>
+<div style="background:rgba(255,255,255,.1);padding:12px;border-radius:14px"><div style="font-size:10px;color:#5eead4">CLICKS</div><div style="font-weight:900;font-size:18px" id="tClicks">0</div></div>
+</div>
+<div class="box">
+<input id="wLink" class="inp" placeholder="Paste Walmart Link...">
+<button id="genBtn" class="btn" onclick="makeLinks()">Generate Earning Link</button>
+</div>
+<div id="readySec" style="display:none">
+<div class="box" style="background:#ecfdf5;text-align:center;border:2px solid #6ee7b7">
+<div style="font-weight:900">🎉 Link Ready!</div>
+<div class="linkArea" id="shortLink"></div>
+<button class="btn" style="background:#000" onclick="copyT('shortLink',this)">Copy Short Link (?CODE)</button>
+<div style="font-size:10px;color:#666;margin-top:8px;word-break:break-all" id="longLink"></div>
+<button class="btn" style="background:#fff;color:#000;border:1px solid #000;margin-top:8px;font-size:13px" onclick="copyT('longLink',this)">Copy Long Backup (?r=) Link</button>
+</div>
+</div>
+<div class="box"><div style="font-weight:900">🔗 Recent Links</div><div id="recent"></div></div>
+</div>
+<script>
+function genId(){let c="ABCDEFGHJKLMNPQRSTUVWXYZ0123456789",s="";for(let i=0;i<6;i++)s+=c[Math.floor(Math.random()*c.length)];return s;}
+function makeLinks(){
+  let o=document.getElementById('wLink').value.trim();
+  if(!o){alert("Link paste karo bhai jaan");return;}
+  if(!o.startsWith('http')) o='https://'+o;
+  let sCode=genId();
+  let enc=btoa(unescape(encodeURIComponent(o)));
+  let shortL=location.origin+location.pathname+"?"+sCode;
+  let longL=location.origin+location.pathname+"?r="+enc;
+  let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');
+  all.push({original:o,sCode:sCode,encoded:enc,shortLink:shortL,longLink:longL,date:new Date().toLocaleDateString('en-GB'),clicks:0});
+  localStorage.setItem('skate_all_links',JSON.stringify(all));
+  document.getElementById('shortLink').innerText=shortL;
+  document.getElementById('longLink').innerText=longL;
+  document.getElementById('readySec').style.display='block';
+  loadR(); document.getElementById('wLink').value="";
+}
+function loadR(){let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');let h="";all.reverse().forEach(x=>{h+=`<div style="display:flex;justify-content:space-between;align-items:center;border:1px solid #eee;padding:10px;border-radius:10px;margin-top:8px"><div><div style="font-weight:800;font-size:12px">${x.shortLink}</div><div style="font-size:10px;color:#888">${x.date}</div></div><button onclick="navigator.clipboard.writeText('${x.longLink}')" style="background:#000;color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:800">Copy</button></div>`});document.getElementById('recent').innerHTML=h||"<p style='color:#999;text-align:center'>No links</p>";document.getElementById('tClicks').innerText=all.length;}
+function copyT(id,btn){navigator.clipboard.writeText(document.getElementById(id).innerText);let o=btn.innerText;btn.innerText="✅ Copied!";setTimeout(()=>btn.innerText=o,1200);}
+loadR();
+</script>
 </body>
 </html>
