@@ -1,9 +1,15 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SkateCart PRO - English</title><style>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SkateCart PRO</title>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;800;900&display=swap');
-body{margin:0;font-family:Inter,Arial;background:#f0faf9}.hd{padding:14px 20px;background:#fff;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99;border-bottom:1px solid #e5ecec}.logo{font-weight:900;font-size:26px;color:#facc15}.logo span{color:#0e7490}.wrap{max-width:520px;margin:0 auto;padding:10px}
+body{margin:0;font-family:Inter,Arial;background:#f0faf9}
+.hd{padding:14px 20px;background:#fff;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99;border-bottom:1px solid #e5ecec}
+.logo{font-weight:900;font-size:26px;color:#facc15}.logo span{color:#0e7490}
+.wrap{max-width:520px;margin:0 auto;padding:10px}
 .payout{background:linear-gradient(135deg,#0f172a 0%,#1e293b 60%,#0f766e 100%);border-radius:24px;padding:20px;color:#fff;margin:12px 0}
-.pGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.pItem{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px}.pItem b{font-size:9px;color:#5eead4;display:block;margin-bottom:4px;letter-spacing:.5px;text-transform:uppercase}.pItem span{font-size:16px;font-weight:900}
-.pItem.sale{border:1px solid rgba(250,204,21,.4);background:rgba(250,204,21,.1)} .pItem.sale b{color:#facc15}
+.pGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.pItem{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px}
+.pItem b{font-size:9px;color:#5eead4;display:block;margin-bottom:4px;letter-spacing:.5px;text-transform:uppercase}
+.pItem span{font-size:16px;font-weight:900}
+.pItem.sale{border:1px solid rgba(250,204,21,.4);background:rgba(250,204,21,.1)}.pItem.sale b{color:#facc15}
 .progress{height:10px;background:rgba(255,255,255,.15);border-radius:20px;margin:16px 0;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,#2dd4bf,#facc15);border-radius:20px;transition:1s}
 .box{background:#fff;border-radius:20px;padding:18px;margin:12px 0;box-shadow:0 8px 25px rgba(0,0,0,.06);border:1px solid #eef2f2}
 .inp{width:100%;padding:15px;border:1.5px solid #d1d5db;border-radius:14px;box-sizing:border-box;font-size:15px;outline:none}.inp:focus{border-color:#14b8a6}
@@ -12,23 +18,15 @@ body{margin:0;font-family:Inter,Arial;background:#f0faf9}.hd{padding:14px 20px;b
 .rCard{border:1.5px solid #e8ecec;border-radius:16px;padding:14px;margin:10px 0;background:#fff;display:flex;justify-content:space-between;align-items:center}
 .copyB{background:linear-gradient(90deg,#1e3a4a,#0d9488);color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:800;cursor:pointer}
 .drawer{position:fixed;top:0;right:-100%;width:85%;max-width:340px;height:100%;background:#fff;z-index:1000;transition:.35s;padding:22px;box-sizing:border-box}.drawer.open{right:0}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:999;display:none}.overlay.show{display:block}
-.mItem{padding:14px 14px;border-radius:12px;margin:5px 0;font-weight:700;color:#334155;cursor:pointer;display:flex;align-items:center;gap:10px}.mItem.active{background:#e6fffe;color:#0f766e;border:1px solid #99f6e0}
+.mItem{padding:14px;border-radius:12px;margin:5px 0;font-weight:700;color:#334155;cursor:pointer;display:flex;align-items:center;gap:10px}.mItem.active{background:#e6fffe;color:#0f766e;border:1px solid #99f6e0}
 .page{display:none}.page.active{display:block}
 </style></head><body>
 <div class="hd"><div class="logo">Skate <span>Cart</span></div><div style="font-size:28px;cursor:pointer" onclick="openMenu()">☰</div></div>
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 <div class="drawer" id="drawer"><div style="display:flex;justify-content:space-between;align-items:center"><div class="logo" style="font-size:22px">Skate <span>Cart</span></div><span style="font-size:28px;cursor:pointer" onclick="closeMenu()">✕</span></div><div style="margin-top:20px"><div class="mItem active" onclick="showPage('links',this)">🔗 My Links</div><div class="mItem" onclick="showPage('analytics',this)">📊 Analytics</div><div class="mItem" onclick="showPage('payment',this)">💳 Payouts</div><div class="mItem" onclick="showPage('history',this)">📜 Payment History</div></div><div style="margin-top:25px;border-top:1px solid #eee;padding-top:16px"><div style="font-weight:800">Haresh Kumar</div><div style="font-size:13px;color:#64748b">germant786kk@gmail.com</div><div style="margin-top:12px;background:#fef2f2;color:#ef4444;padding:10px;border-radius:10px;font-weight:800;text-align:center;cursor:pointer" onclick="localStorage.clear();location.reload()">Sign out</div></div></div>
 <div class="wrap"><div id="links" class="page active">
-<div class="payout">
-<div style="font-weight:900;font-size:18px">💳 Your Payout Dashboard</div>
-<div class="pGrid">
-<div class="pItem"><b>Current Balance</b><span id="earn">$0.00</span></div>
-<div class="pItem"><b>Total Clicks</b><span id="clicks">0</span></div>
-<div class="pItem sale"><b>Total Sales</b><span id="sales">0 Sales</span></div>
-<div class="pItem sale"><b>Sales Commission</b><span id="saleEarn">$0.00</span></div>
-<div class="pItem"><b>Minimum Payout</b><span>$25.00</span></div>
-<div class="pItem"><b>Status</b><span id="status" style="font-size:12px;color:#facc15">Pending 45 Days</span></div>
-</div>
+<div class="payout"><div style="font-weight:900;font-size:18px">💳 Your Payout Dashboard</div>
+<div class="pGrid"><div class="pItem"><b>Current Balance</b><span id="earn">$0.00</span></div><div class="pItem"><b>Total Clicks</b><span id="clicks">0</span></div><div class="pItem sale"><b>Total Sales</b><span id="sales">0 Sales</span></div><div class="pItem sale"><b>Sales Commission</b><span id="saleEarn">$0.00</span></div><div class="pItem"><b>Minimum Payout</b><span>$25.00</span></div><div class="pItem"><b>Status</b><span id="status" style="font-size:12px;color:#facc15">Pending 45 Days</span></div></div>
 <div class="progress"><div id="pBar" class="bar" style="width:0%"></div></div>
 <div style="display:flex;justify-content:space-between;font-size:12px;color:#cbd5e1"><span>Next Payout: <b id="next1" style="color:#fff">1st Oct</b></span><span>Then: <b id="next2" style="color:#fff">15th Oct</b></span></div>
 <div style="margin-top:12px;background:rgba(250,204,21,.15);border:1px solid rgba(250,204,21,.3);border-radius:12px;padding:10px;font-size:11px;line-height:1.4">⚠️ <b>System:</b> $0.25 per click + 10% commission per sale. First payout after 45 days verification. Payouts on 1st & 15th every month after $25 min. Unlimited earnings!</div>
@@ -51,4 +49,23 @@ function makeLinks(){let o=document.getElementById('wLink').value.trim();if(!o)r
 function loadR(){let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');let mine=all.filter(x=>x.owner===cur.email).reverse();let clicks=mine.reduce((a,b)=>a+(b.clicks||0),0);let sales=mine.reduce((a,b)=>a+(b.sales||0),0);let saleComm=mine.reduce((a,b)=>a+(b.saleAmount||0),0);let clickEarn=clicks*0.25;let total=clickEarn+saleComm;document.getElementById('clicks').innerText=clicks;document.getElementById('sales').innerText=sales+" Sales";document.getElementById('saleEarn').innerText="$"+saleComm.toFixed(2);document.getElementById('earn').innerText="$"+total.toFixed(2);document.getElementById('aClicks').innerText=clicks;document.getElementById('aSales').innerText=sales;document.getElementById('aClickEarn').innerText="$"+clickEarn.toFixed(2);document.getElementById('aSaleEarn').innerText="$"+saleComm.toFixed(2);document.getElementById('aTotal').innerText="$"+total.toFixed(2);document.getElementById('pBar').style.width=Math.min((total/25)*100,100)+"%";document.getElementById('payBar').style.width=Math.min((total/25)*100,100)+"%";let st=total>=25?"✅ Ready for Payout":"Pending 45 Days";document.getElementById('status').innerText=st;document.getElementById('payStatus').innerText=st;document.getElementById('status').style.color=total>=25?"#4ade80":"#facc15";let now=new Date();let y=now.getFullYear(),m=now.getMonth();let d1=new Date(y,m,1),d15=new Date(y,m,15);let n1,n2;if(now>d15){n1=new Date(y,m+1,1);n2=new Date(y,m+1,15);}else if(now>d1){n1=d15;n2=new Date(y,m+1,1);}else{n1=d1;n2=d15;}let fmt=(d)=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});document.getElementById('next1').innerText=fmt(n1);document.getElementById('next2').innerText=fmt(n2);document.getElementById('payDate').innerText=fmt(n1);let h="";mine.forEach((mm)=>{h+=`<div class="rCard"><div><div style="font-weight:800;font-size:12px;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${mm.shortLink}</div><div style="font-size:11px;color:#64748b;margin-top:3px">${mm.date} • ${mm.clicks} clicks • ${mm.sales||0} sales • $${((mm.clicks*0.25)+(mm.saleAmount||0)).toFixed(2)}</div></div><button class="copyB" onclick="navigator.clipboard.writeText('${mm.shortLink}');alert('Copied!')">Copy</button></div>`;});document.getElementById('recent').innerHTML=h||"<p style='text-align:center;color:#999;font-size:13px'>No links yet</p>";if(total>=25){document.getElementById('histList').innerHTML=`<div style="background:#f0fdfa;border:1px solid #99f6e0;border-radius:12px;padding:12px"><b>💰 $${total.toFixed(2)}</b> - Ready<br><small>${clicks} clicks ($${clickEarn.toFixed(2)}) + ${sales} sales ($${saleComm.toFixed(2)})</small><br><small>Next: ${fmt(n1)}</small><br><small style="color:#059669">Status: ${st}</small></div>`;}}
 function copyT(id){navigator.clipboard.writeText(document.getElementById(id).innerText);alert("Copied!");}
 (function(){let p=new URLSearchParams(location.search);let s=p.get('s');let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');if(s){let f=all.find(x=>x.shortId===s);if(f){f.clicks=(f.clicks||0)+1;localStorage.setItem('skate_all_links',JSON.stringify(all));location.href=f.original;}}})();loadR();
-</script></body></html>
+</script>
+
+<!-- ✅ COMPLETE AUTO MAIL SYSTEM -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+emailjs.init("y5qo1fs87tL0pZihp");
+function sendApprovalMail(userEmail, userName){
+  if(!userEmail) return;
+  if(localStorage.getItem('mail_sent_'+userEmail)) return;
+  emailjs.send("service_wxtih9l","template_qrvny1f",{
+    to_name: userName || userEmail.split('@')[0],
+    to_email: userEmail,
+    message: "Aapka SkateCart account approve ho chuka hai! Ab earning start karen.",
+    dashboard_link: location.origin
+  }).then(()=>{ localStorage.setItem('mail_sent_'+userEmail,'true'); console.log("Mail sent to "+userEmail); });
+}
+window.addEventListener('load',()=>{ setTimeout(()=>{ if(cur.email && cur.email!=="germant786kk@gmail.com"){ sendApprovalMail(cur.email,cur.email); } },1500); });
+document.addEventListener('submit',(e)=>{ let em=e.target.querySelector('input[type="email"]'); if(em){ let email=em.value.trim(); let nm=e.target.querySelector('input[type="text"]'); let name=nm?nm.value:email; setTimeout(()=>sendApprovalMail(email,name),1000); } });
+</script>
+</body></html>
