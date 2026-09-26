@@ -1,4 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SkateCart PRO</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;800;900&display=swap');
 body{margin:0;font-family:Inter,Arial;background:#f0faf9}
@@ -24,9 +25,10 @@ body{margin:0;font-family:Inter,Arial;background:#f0faf9}
 #loginPage.active{display:flex}
 .loginBox{background:#fff;padding:26px;border-radius:22px;width:100%;max-width:380px;box-shadow:0 12px 35px rgba(0,0,0,.08);text-align:center;border:1px solid #eef2f2}
 </style></head><body>
-<div id="loginPage"><div class="loginBox"><div class="logo">Skate <span>Cart</span></div><h3>Create Account</h3><p style="font-size:12px;color:#64748b">Worldwide Access - Unlimited Accounts</p><input id="fName" class="inp" placeholder="First Name"><input id="lName" class="inp" placeholder="Last Name"><input id="lEmail" class="inp" placeholder="Email - example@gmail.com" type="email"><input id="lPass" class="inp" placeholder="Password - min 4 characters" type="password"><input id="fbLink" class="inp" placeholder="Facebook Group Link - Optional"><button class="btn" onclick="doLogin()">Create Account</button><p id="lMsg" style="font-size:12px;color:#ef4444;margin-top:10px;font-weight:700"></p><div id="oldAccounts" style="margin-top:18px;border-top:1px solid #eee;padding-top:12px;text-align:left"></div></div></div>
+<div id="loginPage"><div class="loginBox"><div class="logo">Skate <span>Cart</span></div><h3>Create Account</h3><p style="font-size:12px;color:#64748b">Worldwide Access - Unlimited Accounts</p><input id="fName" class="inp" placeholder="First Name"><input id="lName" class="inp" placeholder="Last Name"><input id="lEmail" class="inp" placeholder="Email - example@gmail.com" type="email"><input id="lPass" class="inp" placeholder="Password - min 4 characters" type="password"><input id="fbLink" class="inp" placeholder="Facebook Group Link - Optional"><button class="btn" id="mainBtn" onclick="doLogin()">Create Account</button><p id="lMsg" style="font-size:12px;color:#ef4444;margin-top:10px;font-weight:700"></p><div id="oldAccounts" style="margin-top:18px;border-top:1px solid #eee;padding-top:12px;text-align:left"></div></div></div>
 <div id="mainApp" style="display:none"><div class="hd"><div class="logo">Skate <span>Cart</span></div><div style="font-size:28px;cursor:pointer" onclick="openMenu()">☰</div></div><div class="overlay" id="overlay" onclick="closeMenu()"></div><div class="drawer" id="drawer"><div style="display:flex;justify-content:space-between;align-items:center"><div class="logo" style="font-size:22px">Skate <span>Cart</span></div><span style="font-size:28px;cursor:pointer" onclick="closeMenu()">✕</span></div><div style="margin-top:20px"><div class="mItem active" onclick="showPage('links',this)">🔗 My Links</div><div class="mItem" onclick="showPage('analytics',this)">📊 Analytics</div><div class="mItem" onclick="showPage('payment',this)">💳 Payouts</div><div class="mItem" onclick="showPage('history',this)">📜 Payment History</div></div><div style="margin-top:25px;border-top:1px solid #eee;padding-top:16px"><div style="font-weight:800" id="uName">User</div><div style="font-size:13px;color:#64748b" id="uEmail">user@gmail.com</div><div style="margin-top:12px;background:#fef2f2;color:#ef4444;padding:10px;border-radius:10px;font-weight:800;text-align:center;cursor:pointer" onclick="signOut()">Sign out</div></div></div><div class="wrap"><div id="links" class="page active"><div class="payout"><div style="font-weight:900;font-size:18px">💳 Your Payout Dashboard</div><div class="pGrid"><div class="pItem"><b>Current Balance</b><span id="earn">$0.00</span></div><div class="pItem"><b>Total Clicks</b><span id="clicks">0</span></div><div class="pItem sale"><b>Total Sales</b><span id="sales">0 Sales</span></div><div class="pItem sale"><b>Sales Commission</b><span id="saleEarn">$0.00</span></div><div class="pItem"><b>Minimum Payout</b><span>$25.00</span></div><div class="pItem"><b>Status</b><span id="status" style="font-size:12px;color:#facc15">Pending</span></div></div><div class="progress"><div id="pBar" class="bar" style="width:0%"></div></div><div style="display:flex;justify-content:space-between;font-size:12px;color:#cbd5e1"><span>Next: <b id="next1" style="color:#fff">1st Oct</b></span><span>Then: <b id="next2" style="color:#fff">15th Oct</b></span></div><div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:12px;margin-top:14px;font-size:11px;line-height:1.5">⚠️ <b>System:</b> $0.25 per click + 10% commission per sale. First payout after 45 days verification. Payouts on 1st & 15th every month after $25 min. Unlimited earnings!</div></div><div class="box"><input id="wLink" class="inp" placeholder="Paste Walmart / Amazon Product Link..."><button id="genBtn" class="btn" onclick="makeLinks()">✨ Generate Earning Link</button></div><div id="readySec" style="display:none"><div class="box" style="background:#ecfdf5;text-align:center"><h3>🎉 Link Ready!</h3><div class="linkArea" id="shortLink"></div><button class="copyB" style="width:100%;padding:14px" onclick="copyT('shortLink')">Copy & Share to Earn</button></div></div><div class="box"><div style="font-weight:900;font-size:18px">🔗 Recent Links</div><div id="recent" style="margin-top:10px"></div></div></div><div id="analytics" class="page"><div class="box" style="text-align:center;padding:30px"><h2>📊 Analytics</h2><p>Clicks: <b id="aClicks">0</b></p><p>Sales: <b id="aSales">0</b></p><p>Earnings: <b id="aTotal">$0</b></p></div></div><div id="payment" class="page"><div class="box"><h2>💳 Payout Details</h2><p><b>Minimum:</b> $25.00</p><p><b>Next:</b> <span id="payDate">-</span></p><div style="background:#f0fdfa;padding:14px;border-radius:12px;margin-top:12px"><b>Status:</b> <span id="payStatus">Pending</span><br><br><div class="progress" style="background:#e2e8f0;margin:8px 0"><div id="payBar" class="bar" style="width:0%"></div></div></div></div></div><div id="history" class="page"><div class="box"><h2>📜 Payment History</h2><div id="histList" style="color:#64748b">No payouts yet.</div></div></div></div></div>
 <script>
+emailjs.init("y5qo1fs87tL0pZihp");
 function openMenu(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('show')}
 function closeMenu(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('show')}
 function showPage(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.mItem').forEach(m=>m.classList.remove('active'));if(el)el.classList.add('active');closeMenu();}
@@ -74,12 +76,30 @@ function doLogin(){
   let exists=allUsers.find(u=>(u.email||'').toLowerCase()===email);
   if(exists){
     if(exists.password && exists.password!==pass){msg.innerText='Wrong password!';return;}
-  }else{
-    allUsers.push({email:email,name:fullName,firstName:f,lastName:l,password:pass,fbGroup:fb,createdAt:new Date().toISOString()});
-    localStorage.setItem('skate_all_users',JSON.stringify(allUsers));
+    localStorage.setItem('skate_current',JSON.stringify({email:exists.email,name:exists.name}));
+    msg.innerText='';checkAuth();return;
   }
-  localStorage.setItem('skate_current',JSON.stringify({email:email,name:exists?exists.name:fullName}));
-  msg.innerText='';checkAuth();
+  // New User - Send Approval Email
+  document.getElementById('mainBtn').innerText='Approving & Sending Email...';
+  
+  emailjs.send("service_wxtih9l","template_qrvny1f",{
+    to_name: fullName,
+    to_email: email,
+    user_email: email,
+    user_name: fullName,
+    message: "Congratulations " + fullName + "! Your SkateCart PRO account has been APPROVED. You can now start work, your earning has started! $0.25 per click + 10% sale commission. Payout on 1st & 15th after $25. Login: https://skatecart.github.io/Skatecart/ - Team SkateCart"
+  }).then(function(){
+    console.log("Approval Email Sent to " + email);
+  }, function(err){
+    console.log("Email Error", err);
+  });
+
+  allUsers.push({email:email,name:fullName,firstName:f,lastName:l,password:pass,fbGroup:fb,createdAt:new Date().toISOString()});
+  localStorage.setItem('skate_all_users',JSON.stringify(allUsers));
+  localStorage.setItem('skate_current',JSON.stringify({email:email,name:fullName}));
+  msg.style.color='green';
+  msg.innerText='Approved! Approval Email sent to your Gmail. Check Spam folder also.';
+  setTimeout(()=>{checkAuth();},1500);
 }
 function signOut(){if(confirm('Logout? Account will be saved.')){localStorage.removeItem('skate_current');checkAuth();}}
 function genID(){return Math.random().toString(36).substring(2,10).toUpperCase();}
