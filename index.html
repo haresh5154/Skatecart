@@ -17,8 +17,7 @@ input{width:100%;padding:12px;border:1.5px solid #e2e8f0;border-radius:10px}
 <div class="card" id="auth">
 <h2 style="text-align:center">🛒 CREATOR HUB</h2>
 <h1 id="h1">Welcome back</h1>
-<p style="color:#64748b;font-size:13px;margin-bottom:12px" id="sub">Sign in to your account</p>
-
+<p style="color:#64748b;font-size:13px;margin-bottom:12px">Sign in to your account</p>
 <div class="tabs">
 <div id="t1" class="tab active" onclick="openLogin()">Sign In</div>
 <div id="t2" class="tab" onclick="openReg()">New Creator Register</div>
@@ -33,33 +32,50 @@ input{width:100%;padding:12px;border:1.5px solid #e2e8f0;border-radius:10px}
 
 <div id="reg" class="hide">
 <label>First Name</label><input id="FN" placeholder="John"><label>Last Name</label><input id="LN" placeholder="Doe">
-<label>Email</label><input id="RE" placeholder="you@gmail.com">
+<label>Email (Gmail)</label><input id="RE" placeholder="you@gmail.com">
 <label>Password</label><input id="RP" type="password" placeholder="Create password">
-<label style="color:#0e8a8a;margin-top:12px">💳 Meezan Bank for Payout</label>
-<label>Account Title</label><input id="BT" placeholder="Your name">
-<label>Account Number</label><input id="BA" placeholder="0101xxxx">
-<label>IBAN</label><input id="BI" placeholder="PK...">
-<button class="btn" onclick="regNow()">Create Account & Start Walmart Work</button>
+
+<label style="color:#0e8a8a;margin-top:14px">🔗 Facebook Verification for Approval</label>
+<label>Facebook Group Link</label><input id="FG" placeholder="https://facebook.com/groups/...">
+<label>Facebook Page Link</label><input id="FP" placeholder="https://facebook.com/yourpage">
+
+<button class="btn" onclick="regNow()">Submit for Approval</button>
 <p style="text-align:center;margin-top:10px;font-size:13px;color:#64748b">Already have? <span style="color:#0e8a8a;font-weight:800;cursor:pointer" onclick="openLogin()">Sign in</span></p>
 </div>
 </div>
 
 <div class="card hide" id="dash">
-<h1>Welcome Creator ✅</h1><p id="uinfo" style="color:#64748b;margin:8px 0"></p>
-<div style="background:#f8fafc;border:1px solid #e2e8f0;padding:12px;border-radius:12px">
-<b>Your Walmart Tracking Link</b><input id="link" readonly style="margin-top:8px">
-<button class="btn" style="background:#111" onclick="navigator.clipboard.writeText(document.getElementById('link').value);alert('Link Copied! Share karo')">Copy Link</button>
-<p id="bank" style="color:#0e8a8a;font-weight:700;margin-top:8px;font-size:13px"></p>
+<h1>Approved ✅</h1><p id="uinfo" style="color:#64748b;margin:8px 0"></p>
+<div style="background:#f0fdfa;border:1px solid #99f6e0;padding:12px;border-radius:12px">
+<b style="color:#0e8a8a">Your Walmart Tracking Link (Active)</b>
+<input id="link" readonly style="margin-top:8px">
+<button class="btn" style="background:#111" onclick="navigator.clipboard.writeText(document.getElementById('link').value);alert('Link Copied!')">Copy Link</button>
+<p id="fbinfo" style="color:#64748b;font-weight:600;margin-top:8px;font-size:12px"></p>
+<p style="color:#0e8a8a;font-weight:700;margin-top:6px;font-size:13px">Approval Email aapki Gmail par bhej diya gaya hai 📩</p>
 </div>
 <button class="btn" style="background:#fff;color:#111;border:1.5px solid #e2e8f0" onclick="localStorage.removeItem('cur');location.reload()">Logout</button>
 </div>
 
 <script>
-function openLogin(){document.getElementById('login').classList.remove('hide');document.getElementById('reg').classList.add('hide');document.getElementById('t1').classList.add('active');document.getElementById('t2').classList.remove('active');document.getElementById('h1').innerText='Welcome back';}
-function openReg(){document.getElementById('reg').classList.remove('hide');document.getElementById('login').classList.add('hide');document.getElementById('t2').classList.add('active');document.getElementById('t1').classList.remove('active');document.getElementById('h1').innerText='New Creator Register';}
-function regNow(){if(!FN.value||!RE.value||!RP.value){alert('Fill all');return}let u={f:FN.value,l:LN.value,e:RE.value,p:btoa(RP.value),b:{t:BT.value,a:BA.value,i:BI.value}};localStorage.setItem('cr_'+u.e,JSON.stringify(u));localStorage.setItem('cur',u.e);showDash()}
+let track = new URLSearchParams(location.search).get('track') || 'FO68074';
+function openLogin(){login.classList.remove('hide');reg.classList.add('hide');t1.classList.add('active');t2.classList.remove('active');h1.innerText='Welcome back';}
+function openReg(){reg.classList.remove('hide');login.classList.add('hide');t2.classList.add('active');t1.classList.remove('active');h1.innerText='New Creator Register';}
+function regNow(){
+if(!FN.value||!RE.value||!FG.value||!FP.value){alert('Please Facebook Group aur Page link dono dalo');return}
+if(!FG.value.includes('facebook.com')||!FP.value.includes('facebook.com')){alert('Sahi Facebook Link dalo');return}
+let u={f:FN.value,l:LN.value,e:RE.value,p:btoa(RP.value),fb:{g:FG.value,p:FP.value,status:'Approved'},track:track};
+localStorage.setItem('cr_'+u.e,JSON.stringify(u));
+localStorage.setItem('cur',u.e);
+
+// Gmail Auto Notification - Automatic Email Trigger
+let subject = encodeURIComponent("Walmart Creator Hub - Approved ✅");
+let body = encodeURIComponent(`Hello ${u.f} ${u.l},\n\nCongratulations! Aapka Walmart Creator Hub account Approved ho gaya hai.\n\nFacebook Group: ${u.fb.g}\nFacebook Page: ${u.fb.p}\nTracking ID: ${track.toUpperCase()}\n\nAapka Tracking Link: ${location.origin+location.pathname}?track=${track.toUpperCase()}&ref=${btoa(u.e)}\n\nAb aap Walmart ka kaam start kar sakte hain.\n\nThanks,\nCreator Hub Team`);
+window.open(`mailto:${u.e}?subject=${subject}&body=${body}`, '_blank');
+
+showDash();
+}
 function loginNow(){let d=localStorage.getItem('cr_'+LE.value);if(!d){alert('No account, Register karo');openReg();return}if(JSON.parse(d).p!==btoa(LP.value)){alert('Wrong password');return}localStorage.setItem('cur',LE.value);showDash()}
-function showDash(){let c=localStorage.getItem('cur');let u=JSON.parse(localStorage.getItem('cr_'+c));auth.classList.add('hide');dash.classList.remove('hide');uinfo.innerText=u.f+' '+u.l+' ('+u.e+')';bank.innerText='Meezan: '+u.b.t+' | '+u.b.a;link.value=location.origin+location.pathname+'?ref='+btoa(u.e)}
+function showDash(){let c=localStorage.getItem('cur');let u=JSON.parse(localStorage.getItem('cr_'+c));auth.classList.add('hide');dash.classList.remove('hide');uinfo.innerText=u.f+' '+u.l+' ('+u.e+') | Track:'+track.toUpperCase();fbinfo.innerText='Group: '+u.fb.g+' | Page: '+u.fb.p;link.value=location.origin+location.pathname+'?track='+track.toUpperCase()+'&ref='+btoa(u.e)}
 if(localStorage.getItem('cur')){showDash()}
 </script>
 </body></html>
