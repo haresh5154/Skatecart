@@ -1,108 +1,142 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SkateCart PRO</title>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;800;900&display=swap');
-body{margin:0;font-family:Inter,Arial;background:#f0faf9}
-.hd{padding:14px 20px;background:#fff;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99;border-bottom:1px solid #e5ecec}
-.logo{font-weight:900;font-size:26px;color:#facc15}.logo span{color:#0e7490}
-.wrap{max-width:520px;margin:0 auto;padding:10px}
-.box{background:#fff;border-radius:20px;padding:18px;margin:12px 0;box-shadow:0 8px 25px rgba(0,0,0,.06);border:1px solid #eef2f2}
-.inp{width:100%;padding:15px;border:1.5px solid #d1d5db;border-radius:14px;box-sizing:border-box;font-size:15px;outline:none;margin-top:10px}
-.btn{width:100%;background:linear-gradient(90deg,#0f766e,#14b8a6);color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;font-size:16px;margin-top:12px;cursor:pointer}
-.linkArea{background:#fef9c3;border:2px dashed #facc15;border-radius:14px;padding:14px;margin:8px 0;word-break:break-all;text-align:center;font-weight:800;color:#000;font-size:22px}
-.rCard{border:1.5px solid #e8ecec;border-radius:16px;padding:14px;margin:10px 0;background:#fff;display:flex;justify-content:space-between;align-items:center}
-.copyB{background:#000;color:#fff;border:none;padding:12px 18px;border-radius:10px;font-weight:800;cursor:pointer}
-.drawer{position:fixed;top:0;right:-100%;width:85%;max-width:340px;height:100%;background:#fff;z-index:1000;transition:.35s;padding:22px;box-sizing:border-box}.drawer.open{right:0}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:999;display:none}.overlay.show{display:block}
-.mItem{padding:14px;border-radius:12px;margin:5px 0;font-weight:700;color:#334155;cursor:pointer;display:flex;align-items:center;gap:10px}.mItem.active{background:#e6fffe;color:#0f766e;border:1px solid #99f6e0}
-.page{display:none}.page.active{display:block}
-#loginPage{display:none;min-height:100vh;justify-content:center;align-items:center;padding:20px;box-sizing:border-box}
-#loginPage.active{display:flex}
-.loginBox{background:#fff;padding:26px;border-radius:22px;width:100%;max-width:380px;box-shadow:0 12px 35px rgba(0,0,0,.08);text-align:center;border:1px solid #eef2f2}
-#securePage{display:none;min-height:100vh;justify-content:center;align-items:center;flex-direction:column;background:#fff;color:#6b7280;text-align:center;padding:20px}
-</style></head><body>
-<div id="securePage"><div style="font-size:36px">🔒</div><div style="font-weight:800;color:#111;margin:10px 0">Checking security...</div><div>Redirecting to product...</div></div>
-<div id="loginPage"><div class="loginBox"><div class="logo">Skate <span>Cart</span></div><h3>Create Account</h3><input id="fName" class="inp" placeholder="First Name"><input id="lName" class="inp" placeholder="Last Name"><input id="lEmail" class="inp" placeholder="Email" type="email"><input id="lPass" class="inp" placeholder="Password min 4" type="password"><button class="btn" onclick="doLogin()">Create Account</button><p id="lMsg" style="font-size:12px;color:#ef4444;margin-top:10px;font-weight:700"></p><div id="oldAccounts" style="margin-top:18px;border-top:1px solid #eee;padding-top:12px;text-align:left"></div></div></div>
-<div id="mainApp" style="display:none"><div class="hd"><div class="logo">Skate <span>Cart</span></div><div style="font-size:28px;cursor:pointer" onclick="openMenu()">☰</div></div><div class="overlay" id="overlay" onclick="closeMenu()"></div><div class="drawer" id="drawer"><div style="display:flex;justify-content:space-between;align-items:center"><div class="logo" style="font-size:22px">Skate <span>Cart</span></div><span style="font-size:28px;cursor:pointer" onclick="closeMenu()">✕</span></div><div style="margin-top:20px"><div class="mItem active" onclick="showPage('links',this)">🔗 My Links</div><div class="mItem" onclick="showPage('analytics',this)">📊 Analytics</div><div class="mItem" onclick="showPage('payment',this)">💳 Payouts</div></div><div style="margin-top:25px;border-top:1px solid #eee;padding-top:16px"><div style="font-weight:800" id="uName">User</div><div style="font-size:13px;color:#64748b" id="uEmail">user@gmail.com</div><div style="margin-top:12px;background:#fef2f2;color:#ef4444;padding:10px;border-radius:10px;font-weight:800;text-align:center;cursor:pointer" onclick="signOut()">Sign out</div></div></div><div class="wrap"><div id="links" class="page active"><div class="box"><input id="wLink" class="inp" placeholder="Paste Walmart / Amazon Link..."><button id="genBtn" class="btn" onclick="makeLinks()">✨ Generate Earning Link</button></div><div id="readySec" style="display:none"><div class="box" style="background:#ecfdf5;text-align:center"><h3>🎉 Link Ready!</h3><div class="linkArea" id="shortLink"></div><button class="copyB" style="width:100%;padding:14px" onclick="copyT('shortLink',this)">Copy Short Link & Share</button><p id="longLinkShow" style="font-size:11px;color:#0f766e;margin-top:10px">✅ Short Link - Permanent - Never Expires</p></div></div><div class="box"><div style="font-weight:900">🔗 Recent Links</div><div id="recent" style="margin-top:10px"></div></div></div><div id="analytics" class="page"><div class="box" style="text-align:center;padding:30px"><h2>📊 Analytics</h2><p>Clicks: <b id="aClicks">0</b></p><p>Earnings: <b id="aTotal">$0</b></p></div></div><div id="payment" class="page"><div class="box"><h2>💳 Payouts</h2><p>Next Payout</p><p id="payDate">-</p></div></div></div></div>
-<script>
-emailjs.init("y5qo1fs87tL0pZihp");
-function openMenu(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('show')}
-function closeMenu(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('show')}
-function showPage(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.mItem').forEach(m=>m.classList.remove('active'));if(el)el.classList.add('active');closeMenu();}
-let cur=null;
-function checkAuth(){
-  let savedUser=localStorage.getItem('skate_current');
-  let allUsers=JSON.parse(localStorage.getItem('skate_all_users')||'[]');
-  let oldDiv=document.getElementById('oldAccounts');
-  if(oldDiv && allUsers.length>0){
-    let h='<div style="font-size:11px;font-weight:800;margin-bottom:8px;color:#0e7490">Saved accounts:</div>';
-    allUsers.forEach(u=>{h+=`<div style="display:flex;justify-content:space-between;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;padding:8px 10px;border-radius:10px;margin-bottom:6px"><div style="font-size:11px;font-weight:700">${u.email}</div><button onclick="quickLogin('${u.email}')" style="background:#0f766e;color:#fff;border:none;padding:6px 12px;border-radius:7px;font-weight:800;font-size:11px;cursor:pointer">Login</button></div>`});
-    oldDiv.innerHTML=h;
-  }
-  if(savedUser){cur=JSON.parse(savedUser);document.getElementById('loginPage').classList.remove('active');document.getElementById('mainApp').style.display='block';document.getElementById('uEmail').innerText=cur.email;document.getElementById('uName').innerText=cur.name||cur.email.split('@')[0];loadR();}else{document.getElementById('loginPage').classList.add('active');document.getElementById('mainApp').style.display='none';}
-}
-function quickLogin(email){let allUsers=JSON.parse(localStorage.getItem('skate_all_users')||'[]');let u=allUsers.find(x=>x.email.toLowerCase()===email.toLowerCase());if(u){localStorage.setItem('skate_current',JSON.stringify({email:u.email,name:u.name}));checkAuth();}}
-function doLogin(){
-  let f=document.getElementById('fName').value.trim();let l=document.getElementById('lName').value.trim();let email=document.getElementById('lEmail').value.toLowerCase().trim();let pass=document.getElementById('lPass').value.trim();let msg=document.getElementById('lMsg');
-  if(!f){msg.innerText='Please enter First Name';return;} if(!email.includes('@')){msg.innerText='Please enter valid Email';return;} if(pass.length<4){msg.innerText='Password must be at least 4 characters';return;}
-  let fullName=f+(l?" "+l:""); let allUsers=JSON.parse(localStorage.getItem('skate_all_users')||'[]'); let exists=allUsers.find(u=>u.email.toLowerCase()===email);
-  if(exists){localStorage.setItem('skate_current',JSON.stringify({email:exists.email,name:exists.name}));checkAuth();return;}
-  allUsers.push({email:email,name:fullName,password:pass}); localStorage.setItem('skate_all_users',JSON.stringify(allUsers)); localStorage.setItem('skate_current',JSON.stringify({email:email,name:fullName})); checkAuth();
-}
-function signOut(){localStorage.removeItem('skate_current');checkAuth();}
-function genShortId(){ const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; let id=""; for(let i=0;i<8;i++) id+=chars.charAt(Math.floor(Math.random()*chars.length)); return id; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skatecart Hub - Deals & Clearance</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: #0071dc;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .deal-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
+        }
+        .deal-card:hover {
+            transform: translateY(-5px);
+        }
+        .deal-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #eee;
+        }
+        .deal-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .deal-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #222;
+        }
+        .deal-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d9534f;
+            margin-bottom: 15px;
+        }
+        .deal-btn {
+            margin-top: auto;
+            display: block;
+            text-align: center;
+            background: #ffc220;
+            color: #111;
+            padding: 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .deal-btn:hover {
+            background: #e0aa1b;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 13px;
+            margin-top: 40px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
 
-async function makeLinks(){
-  let o=document.getElementById('wLink').value.trim();
-  if(!o) return alert("Please paste a link");
-  if(!o.startsWith('http')) o='https://'+o;
-  let btn=document.getElementById('genBtn');
-  btn.innerText="Generating Short Link...";
+    <header>
+        <h1>Skatecart Hub</h1>
+        <p>Best Clearance Deals & Daily Finds</p>
+    </header>
 
-  // Generate short ?s= CODE like 8UYBQRS2
-  let sCode = genShortId();
-  let shortLink = location.origin+location.pathname+"?s="+sCode;
-  
-  // Also create encoded backup for worldwide redirect
-  let encoded = btoa(unescape(encodeURIComponent(o)));
+    <div class="container">
+        <div class="deals-grid" id="productsContainer">
+            <!-- Product 1 -->
+            <div class="deal-card">
+                <img src="https://via.placeholder.com/300x200" alt="Product Image" class="deal-img">
+                <div class="deal-content">
+                    <div class="deal-title">Yahan Apne Product Ka Naam Likhein</div>
+                    <div class="deal-price">$19.99 <span style="text-decoration: line-through; color: #999; font-size: 14px;">$49.99</span></div>
+                    <!-- Yahan apna Walmart ya Affiliate link lagayein -->
+                    <a href="YOUR_WALMART_AFFILIATE_LINK_HERE" target="_blank" class="deal-btn">Grab Deal at Walmart</a>
+                </div>
+            </div>
 
-  let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');
-  // make sure code is unique
-  while(all.some(x=>x.sCode===sCode)){ sCode=genShortId(); shortLink=location.origin+location.pathname+"?s="+sCode; }
-  
-  all.push({original:o, shortLink:shortLink, sCode:sCode, encoded:encoded, owner:cur.email, clicks:0, date:new Date().toLocaleDateString('en-GB'), createdAt:Date.now()});
-  localStorage.setItem('skate_all_links',JSON.stringify(all));
+            <!-- Product 2 -->
+            <div class="deal-card">
+                <img src="https://via.placeholder.com/300x200" alt="Product Image" class="deal-img">
+                <div class="deal-content">
+                    <div class="deal-title">Dusra Product Ka Naam</div>
+                    <div class="deal-price">$9.99</div>
+                    <a href="YOUR_WALMART_AFFILIATE_LINK_HERE" target="_blank" class="deal-btn">Grab Deal at Walmart</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  document.getElementById('shortLink').innerText=shortLink;
-  document.getElementById('longLinkShow').innerText="✅ Short Link Ready! Like ?s="+sCode+" - Permanent - Never Expires";
-  document.getElementById('readySec').style.display='block';
-  loadR();
-  btn.innerText="✨ Generate Earning Link";
-}
+    <footer>
+        &copy; 2026 Skatecart Hub. All rights reserved.
+    </footer>
 
-function loadR(){if(!cur) return; let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');let mine=all.filter(x=>x.owner===cur.email).reverse();let h="";mine.forEach((mm)=>{h+=`<div class="rCard"><div><div style="font-weight:800;font-size:12px;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${mm.shortLink}</div><div style="font-size:11px;color:#64748b;margin-top:3px">${mm.date}</div></div><button class="copyB" onclick="copyRecent(this,'${mm.shortLink}')">Copy</button></div>`;});document.getElementById('recent').innerHTML=h||"<p style='text-align:center;color:#999'>No links yet</p>";}
-function copyT(id,btn){navigator.clipboard.writeText(document.getElementById(id).innerText);let b=btn;let old=b.innerText;b.innerText="✅ Copied!";setTimeout(()=>b.innerText=old,1500);}
-function copyRecent(btn,link){navigator.clipboard.writeText(link);let old=btn.innerText;btn.innerText="✅";setTimeout(()=>btn.innerText=old,1500);}
-(function(){
-  let p=new URLSearchParams(location.search);
-  let s=p.get('s');
-  let r=p.get('r');
-  if(!s && !r) return;
-  document.getElementById('loginPage').style.display='none';document.getElementById('mainApp').style.display='none';document.getElementById('securePage').style.display='flex';
-  
-  let finalUrl=null;
-  if(s){
-    let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');
-    let found=all.find(x=>x.sCode===s || x.shortLink.includes("?s="+s));
-    if(found){
-      try{ finalUrl=decodeURIComponent(escape(atob(found.encoded))); }catch(e){ finalUrl=found.original; }
-    }
-  }
-  if(!finalUrl && r){
-    try{finalUrl=decodeURIComponent(escape(atob(r)));}catch(e){try{finalUrl=atob(r);}catch(e2){}}
-  }
-  if(finalUrl){setTimeout(()=>{location.replace(finalUrl);},1000);}else{
-    document.getElementById('securePage').innerHTML='<div style="font-weight:800;color:#111">Link not found on this device. Please open the ?r= backup link or generate again.</div>';
-  }
-})();
-checkAuth();
-</script></body></html>
+</body>
+</html>
