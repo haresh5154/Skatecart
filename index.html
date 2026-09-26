@@ -1,81 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Skatecart - Walmart Deals Hub</title>
+<title>SkateCart Creator</title>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>emailjs.init("y5qo1fs87tL0pZihp");</script>
 <style>
-body{font-family:Arial,sans-serif;margin:0;background:#f6f6f6}
-header{background:#000;color:#fff;padding:15px;text-align:center;font-size:22px;font-weight:bold}
-.container{max-width:900px;margin:20px auto;padding:15px}
-.card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.08);margin-bottom:20px}
-input{width:100%;padding:13px;margin:8px 0;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
-button{width:100%;padding:14px;background:#000;color:#fff;border:none;border-radius:8px;font-weight:bold;font-size:16px;cursor:pointer}
-button:active{transform:scale(0.98)}
-.deal{background:#fff;border-radius:10px;padding:15px;display:flex;gap:15px;align-items:center;margin-bottom:15px}
-.deal img{width:80px;height:80px;object-fit:cover;border-radius:8px}
-.badge{background:#0071dc;color:#fff;padding:4px 8px;border-radius:4px;font-size:12px}
+body{margin:0;font-family:Arial;background:#f5f7f9;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.card{background:#fff;width:88%;max-width:380px;padding:28px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+h2{margin:0;color:#1a2a3a} .sub{color:#6b7a8d;font-size:14px;margin:6px 0 22px}
+label{font-size:13px;font-weight:bold} 
+input{width:100%;border:none;border-bottom:1.5px solid #d0d7e0;padding:12px 0;margin:8px 0 18px;outline:none;font-size:15px;box-sizing:border-box}
+.btn{width:100%;background:#0d9488;color:#fff;border:none;padding:14px;border-radius:10px;font-weight:bold;cursor:pointer}
+.bottom{margin-top:18px;font-size:14px} .bottom a{color:#0d9488;font-weight:bold;text-decoration:none}
+.hidden{display:none} .link{float:right;color:#0d9488;font-size:13px;text-decoration:none}
 </style>
 </head>
 <body>
-<header>SKATECART 🛹 - Walmart Deals Hub</header>
 
-<div class="container">
-  <div class="card">
-    <h2 style="margin-top:0">Become a Creator & Earn</h2>
-    <p>Share Walmart deals and earn commission. No bank needed!</p>
-    <input type="text" id="cName" placeholder="Full Name">
-    <input type="email" id="cEmail" placeholder="Email Address">
-    <input type="text" id="cGroup" placeholder="WhatsApp / Facebook Group Link">
-    <div style="display:flex;align-items:center;margin:12px 0;gap:8px">
-      <input type="checkbox" id="cTerms" style="width:18px;height:18px;margin:0">
-      <label for="cTerms">I agree to SkateCart Terms & Conditions ✅</label>
-    </div>
-    <button onclick="createCreator()">Create Account & Get Approved</button>
-    <p id="msg" style="text-align:center;font-weight:bold"></p>
-  </div>
+<div id="signupBox" class="card">
+<h2>Create Creator Account</h2><p class="sub">Join SkateCart and start earning</p>
+<label>Full Name</label><input id="sName" placeholder="Enter your name">
+<label>Email address</label><input id="sEmail" placeholder="Enter your Gmail">
+<label>Password</label><input id="sPass" type="password" placeholder="Create password">
+<label>Facebook Group Link</label><input id="sGroup" placeholder="https://facebook.com/groups/...">
+<button class="btn" onclick="doSignup()">Create Account & Get Approved</button>
+<div class="bottom">Already have account? <a href="#" onclick="showLogin()">Sign in</a></div>
+<p id="sMsg" style="text-align:center"></p>
+</div>
 
-  <h3>🔥 Today's Deals</h3>
-  <div class="deal">
-    <img src="https://i5.walmartimages.com/seo/placeholder" onerror="this.src='https://via.placeholder.com/80'">
-    <div>
-      <div class="badge">HOT DEAL</div>
-      <div style="font-weight:bold;margin-top:5px">Walmart Gift Card $100 - Save Big</div>
-      <div style="color:#007600">In Stock - Creator Commission 10%</div>
-    </div>
-  </div>
+<div id="loginBox" class="card hidden">
+<h2>Welcome back</h2><p class="sub">Sign in to your creator account</p>
+<label>Email address</label><input id="lEmail" placeholder="Enter your email">
+<label>Password</label><a class="link" href="#">Forgot password?</a>
+<input id="lPass" type="password" placeholder="Enter your password">
+<button class="btn" onclick="doLogin()">Sign in</button>
+<div class="bottom">Need access? <a href="#" onclick="showSignup()">Create account</a></div>
+<p id="lMsg" style="color:red;text-align:center"></p>
+</div>
+
+<div id="dashBox" class="card hidden">
+<h2>Dashboard 🛹</h2><p class="sub">Welcome <b id="dName"></b></p>
+<input id="wLink" placeholder="Paste Walmart Product Link here">
+<button class="btn" onclick="makeLink()">Create My Link</button>
+<div id="result" style="display:none;margin-top:15px;background:#f0fdfa;padding:12px;border-radius:8px;word-break:break-all"></div>
+<button class="btn" style="margin-top:20px;background:#ddd;color:#000" onclick="doLogout()">Logout</button>
 </div>
 
 <script>
-function createCreator(){
-  const name = document.getElementById("cName").value.trim();
-  const email = document.getElementById("cEmail").value.trim();
-  const groupLink = document.getElementById("cGroup").value.trim();
-  const terms = document.getElementById("cTerms").checked;
-  const msg = document.getElementById("msg");
-
-  if(!name || !email || !groupLink){alert("Please fill all fields"); return;}
-  if(!terms){alert("Please tick Terms box ✅"); return;}
-
-  msg.style.color="orange";
-  msg.innerText="Approving your account... Please wait ⏳";
-
-  emailjs.send("service_wxtih9l","template_qrvny1f",{
-    to_name: name,
-    to_email: email,
-    group_link: groupLink
-  }).then(()=>{
-    msg.style.color="green";
-    msg.innerText="Approved! Email sent to "+email+" ✅ Check your inbox!";
-    localStorage.setItem("creator_email", email);
-    localStorage.setItem("creator_name", name);
-  },(error)=>{
-    msg.style.color="red";
-    msg.innerText="Failed: "+JSON.stringify(error);
-  });
+function showLogin(){signupBox.classList.add('hidden');loginBox.classList.remove('hidden');dashBox.classList.add('hidden')}
+function showSignup(){loginBox.classList.add('hidden');signupBox.classList.remove('hidden')}
+function doSignup(){
+ let n=sName.value.trim(), e=sEmail.value.trim(), p=sPass.value.trim(), g=sGroup.value.trim();
+ if(!n||!e||!p||!g){alert("Sab boxes bharo");return}
+ let users=JSON.parse(localStorage.getItem('skate_users')||'[]');
+ if(users.find(u=>u.email==e)){alert("Ye Gmail pehle se hai, Login karo");showLogin();return}
+ users.push({name:n,email:e,pass:p,group:g}); localStorage.setItem('skate_users',JSON.stringify(users));
+ sMsg.innerText="Approving... Email bhej raha hu...";
+ emailjs.send("service_wxtih9l","template_qrvny1f",{to_name:n,to_email:e,group_link:g}).then(()=>{sMsg.style.color="green";sMsg.innerText="Approved! Ab Login karo";setTimeout(showLogin,1500)});
 }
+function doLogin(){
+ let e=lEmail.value.trim(), p=lPass.value.trim();
+ let users=JSON.parse(localStorage.getItem('skate_users')||'[]');
+ let f=users.find(u=>u.email==e && u.pass==p);
+ if(f){localStorage.setItem('skate_current',JSON.stringify(f));openDash(f)}else{lMsg.innerText="Gmail ya Password ghalat hai!"}
+}
+function openDash(u){signupBox.classList.add('hidden');loginBox.classList.add('hidden');dashBox.classList.remove('hidden');dName.innerText=u.name}
+function makeLink(){
+ let link=wLink.value.trim(); if(!link){alert("Walmart link dalo");return}
+ let cur=JSON.parse(localStorage.getItem('skate_current'));
+ let myLink="https://skatecart.github.io/Skatecart/?ref="+cur.email+"&product="+encodeURIComponent(link);
+ result.style.display="block"; result.innerHTML="<b>Your Earning Link:</b><br>"+myLink+"<br><br><button onclick=\"navigator.clipboard.writeText('"+myLink+"')\" style='padding:8px 12px;background:#0d9488;color:#fff;border:none;border-radius:6px'>Copy</button>";
+}
+function doLogout(){localStorage.removeItem('skate_current');showLogin()}
+let cur=localStorage.getItem('skate_current'); if(cur){openDash(JSON.parse(cur))}
 </script>
 </body>
 </html>
