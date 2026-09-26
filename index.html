@@ -20,10 +20,27 @@ body{margin:0;font-family:Inter,Arial;background:#f0faf9}
 .drawer{position:fixed;top:0;right:-100%;width:85%;max-width:340px;height:100%;background:#fff;z-index:1000;transition:.35s;padding:22px;box-sizing:border-box}.drawer.open{right:0}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.45);z-index:999;display:none}.overlay.show{display:block}
 .mItem{padding:14px;border-radius:12px;margin:5px 0;font-weight:700;color:#334155;cursor:pointer;display:flex;align-items:center;gap:10px}.mItem.active{background:#e6fffe;color:#0f766e;border:1px solid #99f6e0}
 .page{display:none}.page.active{display:block}
+#loginPage{display:none;min-height:100vh;justify-content:center;align-items:center;padding:20px;box-sizing:border-box}
+#loginPage.active{display:flex}
+.loginBox{background:#fff;padding:26px;border-radius:22px;width:100%;max-width:380px;box-shadow:0 12px 35px rgba(0,0,0,.08);text-align:center;border:1px solid #eef2f2}
 </style></head><body>
+
+<div id="loginPage">
+<div class="loginBox">
+<div class="logo">Skate <span>Cart</span></div>
+<h3 style="margin:14px 0 4px 0">Login / Signup</h3>
+<p style="font-size:12px;color:#64748b">ایک Gmail = ایک Account<br>ایک موبائل سے 10 Account بنا سکتے ہو - دنیا کے کسی بھی ملک سے</p>
+<input id="lName" class="inp" placeholder="آپ کا نام">
+<input id="lEmail" class="inp" placeholder="Gmail - hassan@gmail.com" type="email">
+<button class="btn" onclick="doLogin()">Continue - اکاؤنٹ بنائیں</button>
+<p id="lMsg" style="font-size:12px;color:#ef4444;margin-top:12px;font-weight:700"></p>
+</div>
+</div>
+
+<div id="mainApp" style="display:none">
 <div class="hd"><div class="logo">Skate <span>Cart</span></div><div style="font-size:28px;cursor:pointer" onclick="openMenu()">☰</div></div>
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
-<div class="drawer" id="drawer"><div style="display:flex;justify-content:space-between;align-items:center"><div class="logo" style="font-size:22px">Skate <span>Cart</span></div><span style="font-size:28px;cursor:pointer" onclick="closeMenu()">✕</span></div><div style="margin-top:20px"><div class="mItem active" onclick="showPage('links',this)">🔗 My Links</div><div class="mItem" onclick="showPage('analytics',this)">📊 Analytics</div><div class="mItem" onclick="showPage('payment',this)">💳 Payouts</div><div class="mItem" onclick="showPage('history',this)">📜 Payment History</div></div><div style="margin-top:25px;border-top:1px solid #eee;padding-top:16px"><div style="font-weight:800" id="uName">Haresh Kumar</div><div style="font-size:13px;color:#64748b" id="uEmail">germant786kk@gmail.com</div><div style="margin-top:12px;background:#fef2f2;color:#ef4444;padding:10px;border-radius:10px;font-weight:800;text-align:center;cursor:pointer" onclick="signOut()">Sign out</div></div></div>
+<div class="drawer" id="drawer"><div style="display:flex;justify-content:space-between;align-items:center"><div class="logo" style="font-size:22px">Skate <span>Cart</span></div><span style="font-size:28px;cursor:pointer" onclick="closeMenu()">✕</span></div><div style="margin-top:20px"><div class="mItem active" onclick="showPage('links',this)">🔗 My Links</div><div class="mItem" onclick="showPage('analytics',this)">📊 Analytics</div><div class="mItem" onclick="showPage('payment',this)">💳 Payouts</div><div class="mItem" onclick="showPage('history',this)">📜 Payment History</div></div><div style="margin-top:25px;border-top:1px solid #eee;padding-top:16px"><div style="font-weight:800" id="uName">User</div><div style="font-size:13px;color:#64748b" id="uEmail">user@gmail.com</div><div style="margin-top:12px;background:#fef2f2;color:#ef4444;padding:10px;border-radius:10px;font-weight:800;text-align:center;cursor:pointer" onclick="signOut()">Sign out</div></div></div>
 <div class="wrap"><div id="links" class="page active">
 <div class="payout"><div style="font-weight:900;font-size:18px">💳 Your Payout Dashboard</div>
 <div class="pGrid"><div class="pItem"><b>Current Balance</b><span id="earn">$0.00</span></div><div class="pItem"><b>Total Clicks</b><span id="clicks">0</span></div><div class="pItem sale"><b>Total Sales</b><span id="sales">0 Sales</span></div><div class="pItem sale"><b>Sales Commission</b><span id="saleEarn">$0.00</span></div><div class="pItem"><b>Minimum Payout</b><span>$25.00</span></div><div class="pItem"><b>Status</b><span id="status" style="font-size:12px;color:#facc15">Pending 45 Days</span></div></div>
@@ -38,50 +55,61 @@ body{margin:0;font-family:Inter,Arial;background:#f0faf9}
 <div id="payment" class="page"><div class="box"><h2>💳 Payout Details</h2><p><b>Minimum:</b> $25.00</p><p><b>Next Date:</b> <span id="payDate">-</span></p><div style="background:#f0fdfa;padding:14px;border-radius:12px;margin-top:12px"><b>Status:</b> <span id="payStatus">Pending</span><br><br><div class="progress" style="background:#e2e8f0;margin:8px 0"><div id="payBar" class="bar" style="width:0%"></div></div></div></div></div>
 <div id="history" class="page"><div class="box"><h2>📜 Payment History</h2><div id="histList" style="color:#64748b">No payouts yet.</div></div></div>
 </div>
+</div>
+
 <script>
 function openMenu(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('show')}
 function closeMenu(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('show')}
-function showPage(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.mItem').forEach(m=>m.classList.remove('active'));el.classList.add('active');closeMenu();}
+function showPage(id,el){document.querySelectorAll('#mainApp.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.mItem').forEach(m=>m.classList.remove('active'));if(el) el.classList.add('active');closeMenu();}
 
-// ✅ LOGOUT AB 100% FIX HAI - DATA DELETE NAHI HOGA
+// ===== LOGIN / SIGNUP SYSTEM - WORLDWIDE =====
+let cur = null;
+function checkAuth(){
+  let savedUser = localStorage.getItem('skate_current');
+  if(savedUser){
+    cur = JSON.parse(savedUser);
+    document.getElementById('loginPage').classList.remove('active');
+    document.getElementById('mainApp').style.display='block';
+    document.getElementById('uEmail').innerText=cur.email;
+    document.getElementById('uName').innerText=cur.name||cur.email.split('@')[0];
+    loadR();
+    // Auto mail after login
+    if(cur.email.toLowerCase()!="germant786kk@gmail.com"){ setTimeout(()=>{sendApprovalMail(cur.email,cur.name);},1500); }
+  } else {
+    document.getElementById('loginPage').classList.add('active');
+    document.getElementById('mainApp').style.display='none';
+  }
+}
+function doLogin(){
+  let name=document.getElementById('lName').value.trim();
+  let email=document.getElementById('lEmail').value.toLowerCase().trim();
+  if(!email.includes('@') ||!email.includes('.')){ document.getElementById('lMsg').innerText='بھائی صحیح Gmail لکھو'; return; }
+  if(!name){ name=email.split('@')[0]; }
+  let allUsers=JSON.parse(localStorage.getItem('skate_all_users')||'[]');
+  let exists=allUsers.find(u=>(u.email||'').toLowerCase()===email);
+  if(!exists){
+    if(allUsers.length>=10){ alert('⚠️ ایک موبائل سے 10 اکاؤنٹ کی لمٹ پوری ہو گئی!'); return; }
+    allUsers.push({email:email,name:name,createdAt:new Date().toISOString()});
+    localStorage.setItem('skate_all_users',JSON.stringify(allUsers));
+  }
+  localStorage.setItem('skate_current',JSON.stringify({email:email,name:exists?exists.name:name}));
+  checkAuth();
+}
 function signOut(){
-  if(confirm('Kya aap logout karna chahte ho? Dusri Gmail se naya account bana sakte ho.')){
+  if(confirm('Logout کرنا ہے؟ دوسری Gmail سے نیا اکاؤنٹ بنا سکتے ہو۔')){
     localStorage.removeItem('skate_current');
-    alert('Logout ho gaya! Ab aap dusri Gmail se login / signup kar sakte ho.');
-    // Agar aapke pas login.html ya signup.html hai to wahan bhej dega, warna same page reload hoke login mangega
-    if(location.pathname.includes('index.html')){
-      location.href = location.pathname.replace('index.html','login.html');
-    } else {
-      // Dashboard ka data safe rahega, sirf current user hatayega
-      document.body.innerHTML = '<div style="text-align:center;padding:80px 20px;font-family:Inter"><h2>✅ Logged Out</h2><p style="color:#64748b">Aap logout ho gaye ho. Dusri Gmail se account bana sakte ho.</p><br><a href="login.html" style="background:#0f766e;color:#fff;padding:14px 24px;border-radius:12px;text-decoration:none;font-weight:800;display:inline-block">Go to Login / Signup</a><br><br><a href="'+location.pathname+'" style="color:#0f766e;font-weight:700">Back to Dashboard (Admin)</a></div>';
-    }
+    // IMPORTANT: No redirect to login.html, just show login box in same file - NO 404
+    checkAuth();
   }
 }
 
-function canCreateAccount(newEmail){
-  newEmail=newEmail.toLowerCase().trim();
-  let allUsers=JSON.parse(localStorage.getItem('skate_all_users')||'[]');
-  let exists=allUsers.find(u=>(u.email||'').toLowerCase()===newEmail);
-  if(exists){alert('⚠️ Ye Gmail '+newEmail+' se pehle hi account bana hua hai!\\nEk Gmail se sirf ek hi account ban sakta hai.\\nAlag Gmail use karo.');return false;}
-  return true;
-}
-
-// ✅ Current user load - ab default admin tabhi lagega jab pehli baar koi user hi na ho
-let savedUser = localStorage.getItem('skate_current');
-let cur;
-if(savedUser){ cur = JSON.parse(savedUser); }
-else { cur = {email:"germant786kk@gmail.com",name:"Haresh Kumar"}; }
-
-document.getElementById('uEmail').innerText=cur.email;
-document.getElementById('uName').innerText=cur.name||cur.email.split('@')[0];
-
-(function(){let all=JSON.parse(localStorage.getItem('skate_all_users')||'[]');if(!all.find(u=>(u.email||'').toLowerCase()===cur.email.toLowerCase())){all.push({email:cur.email.toLowerCase(),name:cur.name||cur.email,createdAt:new Date().toISOString()});localStorage.setItem('skate_all_users',JSON.stringify(all));}})();
-
+// ===== YOUR ORIGINAL LOGIC =====
 function genID(){return Math.random().toString(36).substring(2,10).toUpperCase();}
 function makeLinks(){let o=document.getElementById('wLink').value.trim();if(!o)return alert("Please paste a link");document.getElementById('genBtn').innerText="Generating...";setTimeout(()=>{let sid=genID();let short=location.origin+location.pathname+"?s="+sid;let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');all.push({shortId:sid,original:o,shortLink:short,owner:cur.email,clicks:0,sales:0,saleAmount:0,date:new Date().toLocaleDateString('en-GB'),createdAt:Date.now()});localStorage.setItem('skate_all_links',JSON.stringify(all));document.getElementById('shortLink').innerText=short;document.getElementById('readySec').style.display='block';loadR();document.getElementById('genBtn').innerText="✨ Generate Earning Link";},700);}
-function loadR(){let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');let mine=all.filter(x=>x.owner===cur.email).reverse();let clicks=mine.reduce((a,b)=>a+(b.clicks||0),0);let sales=mine.reduce((a,b)=>a+(b.sales||0),0);let saleComm=mine.reduce((a,b)=>a+(b.saleAmount||0),0);let clickEarn=clicks*0.25;let total=clickEarn+saleComm;document.getElementById('clicks').innerText=clicks;document.getElementById('sales').innerText=sales+" Sales";document.getElementById('saleEarn').innerText="$"+saleComm.toFixed(2);document.getElementById('earn').innerText="$"+total.toFixed(2);document.getElementById('aClicks').innerText=clicks;document.getElementById('aSales').innerText=sales;document.getElementById('aTotal').innerText="$"+total.toFixed(2);document.getElementById('pBar').style.width=Math.min((total/25)*100,100)+"%";document.getElementById('payBar').style.width=Math.min((total/25)*100,100)+"%";let st=total>=25?"✅ Ready for Payout":"Pending 45 Days";document.getElementById('status').innerText=st;document.getElementById('payStatus').innerText=st;let now=new Date();let y=now.getFullYear(),m=now.getMonth();let d1=new Date(y,m,1),d15=new Date(y,m,15);let n1,n2;if(now>d15){n1=new Date(y,m+1,1);n2=new Date(y,m+1,15);}else if(now>d1){n1=d15;n2=new Date(y,m+1,1);}else{n1=d1;n2=d15;}let fmt=(d)=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});document.getElementById('next1').innerText=fmt(n1);document.getElementById('next2').innerText=fmt(n2);document.getElementById('payDate').innerText=fmt(n1);let h="";mine.forEach((mm)=>{h+=`<div class="rCard"><div><div style="font-weight:800;font-size:12px;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${mm.shortLink}</div><div style="font-size:11px;color:#64748b;margin-top:3px">${mm.date} • ${mm.clicks} clicks</div></div><button class="copyB" onclick="navigator.clipboard.writeText('${mm.shortLink}');alert('Copied!')">Copy</button></div>`;});document.getElementById('recent').innerHTML=h||"<p style='text-align:center;color:#999'>No links yet</p>";}
+function loadR(){if(!cur) return; let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');let mine=all.filter(x=>x.owner===cur.email).reverse();let clicks=mine.reduce((a,b)=>a+(b.clicks||0),0);let sales=mine.reduce((a,b)=>a+(b.sales||0),0);let saleComm=mine.reduce((a,b)=>a+(b.saleAmount||0),0);let clickEarn=clicks*0.25;let total=clickEarn+saleComm;document.getElementById('clicks').innerText=clicks;document.getElementById('sales').innerText=sales+" Sales";document.getElementById('saleEarn').innerText="$"+saleComm.toFixed(2);document.getElementById('earn').innerText="$"+total.toFixed(2);document.getElementById('aClicks').innerText=clicks;document.getElementById('aSales').innerText=sales;document.getElementById('aTotal').innerText="$"+total.toFixed(2);document.getElementById('pBar').style.width=Math.min((total/25)*100,100)+"%";document.getElementById('payBar').style.width=Math.min((total/25)*100,100)+"%";let st=total>=25?"✅ Ready for Payout":"Pending 45 Days";document.getElementById('status').innerText=st;document.getElementById('payStatus').innerText=st;let now=new Date();let y=now.getFullYear(),m=now.getMonth();let d1=new Date(y,m,1),d15=new Date(y,m,15);let n1,n2;if(now>d15){n1=new Date(y,m+1,1);n2=new Date(y,m+1,15);}else if(now>d1){n1=d15;n2=new Date(y,m+1,1);}else{n1=d1;n2=d15;}let fmt=(d)=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});document.getElementById('next1').innerText=fmt(n1);document.getElementById('next2').innerText=fmt(n2);document.getElementById('payDate').innerText=fmt(n1);let h="";mine.forEach((mm)=>{h+=`<div class="rCard"><div><div style="font-weight:800;font-size:12px;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${mm.shortLink}</div><div style="font-size:11px;color:#64748b;margin-top:3px">${mm.date} • ${mm.clicks} clicks</div></div><button class="copyB" onclick="navigator.clipboard.writeText('${mm.shortLink}');alert('Copied!')">Copy</button></div>`;});document.getElementById('recent').innerHTML=h||"<p style='text-align:center;color:#999'>No links yet</p>";}
 function copyT(id){navigator.clipboard.writeText(document.getElementById(id).innerText);alert("Copied!");}
-(function(){let p=new URLSearchParams(location.search);let s=p.get('s');let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');if(s){let f=all.find(x=>x.shortId===s);if(f){f.clicks=(f.clicks||0)+1;localStorage.setItem('skate_all_links',JSON.stringify(all));location.href=f.original;}}})();loadR();
+(function(){let p=new URLSearchParams(location.search);let s=p.get('s');let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');if(s){let f=all.find(x=>x.shortId===s);if(f){f.clicks=(f.clicks||0)+1;localStorage.setItem('skate_all_links',JSON.stringify(all));location.href=f.original;}}})();
+checkAuth();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
@@ -89,8 +117,7 @@ emailjs.init("y5qo1fs87tL0pZihp");
 function sendApprovalMail(userEmail, userName){
   if(!userEmail || userEmail.toLowerCase()==="germant786kk@gmail.com") return;
   if(localStorage.getItem('mail_sent_'+userEmail)) return;
-  emailjs.send("service_wxtih9l","template_qrvny1f",{to_name:userName||userEmail.split('@')[0],to_email:userEmail,message:"Aapka account approve ho gaya!",dashboard_link:location.origin+location.pathname}).then(()=>{localStorage.setItem('mail_sent_'+userEmail,'true');});
+  emailjs.send("service_wxtih9l","template_qrvny1f",{to_name:userName||userEmail.split('@')[0],to_email:userEmail,message:"Aapka account approve ho gaya! Ab aap Walmart / Amazon ki post kar sakte ho.",dashboard_link:location.origin+location.pathname}).then(()=>{localStorage.setItem('mail_sent_'+userEmail,'true');});
 }
-window.addEventListener('load',()=>{setTimeout(()=>{if(cur.email.toLowerCase()!=="germant786kk@gmail.com"){sendApprovalMail(cur.email,cur.name);}},1500);});
 </script>
 </body></html>
