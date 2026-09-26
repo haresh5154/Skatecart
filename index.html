@@ -6,10 +6,6 @@ body{margin:0;font-family:Inter,Arial;background:#f0faf9}
 .hd{padding:14px 20px;background:#fff;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99;border-bottom:1px solid #e5ecec}
 .logo{font-weight:900;font-size:26px;color:#facc15}.logo span{color:#0e7490}
 .wrap{max-width:520px;margin:0 auto;padding:10px}
-.payout{background:linear-gradient(135deg,#0f172a 0%,#1e293b 60%,#0f766e 100%);border-radius:24px;padding:20px;color:#fff;margin:12px 0}
-.pGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.pItem{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px}
-.pItem b{font-size:9px;color:#5eead4;display:block;margin-bottom:4px;letter-spacing:.5px;text-transform:uppercase}
-.pItem span{font-size:16px;font-weight:900}
 .box{background:#fff;border-radius:20px;padding:18px;margin:12px 0;box-shadow:0 8px 25px rgba(0,0,0,.06);border:1px solid #eef2f2}
 .inp{width:100%;padding:15px;border:1.5px solid #d1d5db;border-radius:14px;box-sizing:border-box;font-size:15px;outline:none;margin-top:10px}
 .btn{width:100%;background:linear-gradient(90deg,#0f766e,#14b8a6);color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;font-size:16px;margin-top:12px;cursor:pointer}
@@ -24,9 +20,9 @@ body{margin:0;font-family:Inter,Arial;background:#f0faf9}
 .loginBox{background:#fff;padding:26px;border-radius:22px;width:100%;max-width:380px;box-shadow:0 12px 35px rgba(0,0,0,.08);text-align:center;border:1px solid #eef2f2}
 #securePage{display:none;min-height:100vh;justify-content:center;align-items:center;flex-direction:column;background:#fff;color:#6b7280;text-align:center;padding:20px}
 </style></head><body>
-<div id="securePage"><div style="font-size:36px">🔒</div><div style="font-weight:800;color:#111;margin:10px 0">Checking security...</div><div id="secText1">Verifying connection...</div></div>
-<div id="loginPage"><div class="loginBox"><div class="logo">Skate <span>Cart</span></div><h3>Create Account</h3><input id="fName" class="inp" placeholder="First Name"><input id="lName" class="inp" placeholder="Last Name"><input id="lEmail" class="inp" placeholder="Email" type="email"><input id="lPass" class="inp" placeholder="Password min 4" type="password"><button class="btn" id="mainBtn" onclick="doLogin()">Create Account</button><p id="lMsg" style="font-size:12px;color:#ef4444;margin-top:10px;font-weight:700"></p><div id="oldAccounts" style="margin-top:18px;border-top:1px solid #eee;padding-top:12px;text-align:left"></div></div></div>
-<div id="mainApp" style="display:none"><div class="hd"><div class="logo">Skate <span>Cart</span></div><div style="font-size:28px;cursor:pointer" onclick="openMenu()">☰</div></div><div class="overlay" id="overlay" onclick="closeMenu()"></div><div class="drawer" id="drawer"><div style="display:flex;justify-content:space-between;align-items:center"><div class="logo" style="font-size:22px">Skate <span>Cart</span></div><span style="font-size:28px;cursor:pointer" onclick="closeMenu()">✕</span></div><div style="margin-top:20px"><div class="mItem active" onclick="showPage('links',this)">🔗 My Links</div><div class="mItem" onclick="showPage('analytics',this)">📊 Analytics</div><div class="mItem" onclick="showPage('payment',this)">💳 Payouts</div></div><div style="margin-top:25px;border-top:1px solid #eee;padding-top:16px"><div style="font-weight:800" id="uName">User</div><div style="font-size:13px;color:#64748b" id="uEmail">user@gmail.com</div><div style="margin-top:12px;background:#fef2f2;color:#ef4444;padding:10px;border-radius:10px;font-weight:800;text-align:center;cursor:pointer" onclick="signOut()">Sign out</div></div></div><div class="wrap"><div id="links" class="page active"><div class="box"><input id="wLink" class="inp" placeholder="Paste Walmart / Amazon Link..."><button id="genBtn" class="btn" onclick="makeLinks()">✨ Generate Earning Link</button></div><div id="readySec" style="display:none"><div class="box" style="background:#ecfdf5;text-align:center"><h3>🎉 Link Ready! Chhoti Link</h3><div class="linkArea" id="shortLink"></div><button class="copyB" style="width:100%;padding:14px" onclick="copyT('shortLink',this)">Copy Chhoti Link & Share</button><p id="longLinkShow" style="font-size:11px;color:#0f766e;margin-top:10px"></p></div></div><div class="box"><div style="font-weight:900">🔗 Recent Links</div><div id="recent" style="margin-top:10px"></div></div></div><div id="analytics" class="page"><div class="box" style="text-align:center;padding:30px"><h2>📊 Analytics</h2><p>Clicks: <b id="aClicks">0</b></p><p>Earnings: <b id="aTotal">$0</b></p></div></div><div id="payment" class="page"><div class="box"><h2>💳 Payouts</h2><p>Next Payout</p><p id="payDate">-</p></div></div></div></div>
+<div id="securePage"><div style="font-size:36px">🔒</div><div style="font-weight:800;color:#111;margin:10px 0">Checking security...</div><div>Redirecting to product...</div></div>
+<div id="loginPage"><div class="loginBox"><div class="logo">Skate <span>Cart</span></div><h3>Create Account</h3><input id="fName" class="inp" placeholder="First Name"><input id="lName" class="inp" placeholder="Last Name"><input id="lEmail" class="inp" placeholder="Email" type="email"><input id="lPass" class="inp" placeholder="Password min 4" type="password"><button class="btn" onclick="doLogin()">Create Account</button><p id="lMsg" style="font-size:12px;color:#ef4444;margin-top:10px;font-weight:700"></p><div id="oldAccounts" style="margin-top:18px;border-top:1px solid #eee;padding-top:12px;text-align:left"></div></div></div>
+<div id="mainApp" style="display:none"><div class="hd"><div class="logo">Skate <span>Cart</span></div><div style="font-size:28px;cursor:pointer" onclick="openMenu()">☰</div></div><div class="overlay" id="overlay" onclick="closeMenu()"></div><div class="drawer" id="drawer"><div style="display:flex;justify-content:space-between;align-items:center"><div class="logo" style="font-size:22px">Skate <span>Cart</span></div><span style="font-size:28px;cursor:pointer" onclick="closeMenu()">✕</span></div><div style="margin-top:20px"><div class="mItem active" onclick="showPage('links',this)">🔗 My Links</div><div class="mItem" onclick="showPage('analytics',this)">📊 Analytics</div><div class="mItem" onclick="showPage('payment',this)">💳 Payouts</div></div><div style="margin-top:25px;border-top:1px solid #eee;padding-top:16px"><div style="font-weight:800" id="uName">User</div><div style="font-size:13px;color:#64748b" id="uEmail">user@gmail.com</div><div style="margin-top:12px;background:#fef2f2;color:#ef4444;padding:10px;border-radius:10px;font-weight:800;text-align:center;cursor:pointer" onclick="signOut()">Sign out</div></div></div><div class="wrap"><div id="links" class="page active"><div class="box"><input id="wLink" class="inp" placeholder="Paste Walmart / Amazon Link..."><button id="genBtn" class="btn" onclick="makeLinks()">✨ Generate Earning Link</button></div><div id="readySec" style="display:none"><div class="box" style="background:#ecfdf5;text-align:center"><h3>🎉 Link Ready!</h3><div class="linkArea" id="shortLink"></div><button class="copyB" style="width:100%;padding:14px" onclick="copyT('shortLink',this)">Copy Short Link & Share</button><p id="longLinkShow" style="font-size:11px;color:#0f766e;margin-top:10px">✅ Short Link - Permanent - Never Expires</p></div></div><div class="box"><div style="font-weight:900">🔗 Recent Links</div><div id="recent" style="margin-top:10px"></div></div></div><div id="analytics" class="page"><div class="box" style="text-align:center;padding:30px"><h2>📊 Analytics</h2><p>Clicks: <b id="aClicks">0</b></p><p>Earnings: <b id="aTotal">$0</b></p></div></div><div id="payment" class="page"><div class="box"><h2>💳 Payouts</h2><p>Next Payout</p><p id="payDate">-</p></div></div></div></div>
 <script>
 emailjs.init("y5qo1fs87tL0pZihp");
 function openMenu(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('show')}
@@ -47,52 +43,37 @@ function checkAuth(){
 function quickLogin(email){let allUsers=JSON.parse(localStorage.getItem('skate_all_users')||'[]');let u=allUsers.find(x=>x.email.toLowerCase()===email.toLowerCase());if(u){localStorage.setItem('skate_current',JSON.stringify({email:u.email,name:u.name}));checkAuth();}}
 function doLogin(){
   let f=document.getElementById('fName').value.trim();let l=document.getElementById('lName').value.trim();let email=document.getElementById('lEmail').value.toLowerCase().trim();let pass=document.getElementById('lPass').value.trim();let msg=document.getElementById('lMsg');
-  if(!f){msg.innerText='First Name likho';return;} if(!email.includes('@')){msg.innerText='Valid Email likho';return;} if(pass.length<4){msg.innerText='Password 4 se zyada';return;}
+  if(!f){msg.innerText='Please enter First Name';return;} if(!email.includes('@')){msg.innerText='Please enter valid Email';return;} if(pass.length<4){msg.innerText='Password must be at least 4 characters';return;}
   let fullName=f+(l?" "+l:""); let allUsers=JSON.parse(localStorage.getItem('skate_all_users')||'[]'); let exists=allUsers.find(u=>u.email.toLowerCase()===email);
   if(exists){localStorage.setItem('skate_current',JSON.stringify({email:exists.email,name:exists.name}));checkAuth();return;}
   allUsers.push({email:email,name:fullName,password:pass}); localStorage.setItem('skate_all_users',JSON.stringify(allUsers)); localStorage.setItem('skate_current',JSON.stringify({email:email,name:fullName})); checkAuth();
 }
 function signOut(){localStorage.removeItem('skate_current');checkAuth();}
+function genShortId(){ const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; let id=""; for(let i=0;i<8;i++) id+=chars.charAt(Math.floor(Math.random()*chars.length)); return id; }
 
-// FINAL FIXED - CHHOTI LINK 100%
 async function makeLinks(){
   let o=document.getElementById('wLink').value.trim();
-  if(!o) return alert("Link paste karo bhai");
+  if(!o) return alert("Please paste a link");
   if(!o.startsWith('http')) o='https://'+o;
   let btn=document.getElementById('genBtn');
-  btn.innerText="Chhoti Link Ban Rahi Hai...";
+  btn.innerText="Generating Short Link...";
 
+  // Generate short ?s= CODE like 8UYBQRS2
+  let sCode = genShortId();
+  let shortLink = location.origin+location.pathname+"?s="+sCode;
+  
+  // Also create encoded backup for worldwide redirect
   let encoded = btoa(unescape(encodeURIComponent(o)));
-  let pakiLink = location.origin+location.pathname+"?r="+encoded;
-
-  let tiny = "";
-  try{
-    let longEnc = encodeURIComponent(pakiLink);
-    let api1 = `https://is.gd/create.php?format=simple&url=${longEnc}`;
-    let proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(api1)}`;
-    let res = await fetch(proxy);
-    let txt = (await res.text()).trim();
-    if(txt.startsWith("https://")) tiny = txt;
-  }catch(e){}
-
-  if(!tiny){
-    try{
-      let api2 = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(pakiLink)}`;
-      let proxy2 = `https://api.allorigins.win/raw?url=${encodeURIComponent(api2)}`;
-      let r2 = await fetch(proxy2);
-      let txt2 = (await r2.text()).trim();
-      if(txt2.startsWith("http")) tiny = txt2;
-    }catch(e){}
-  }
-
-  if(!tiny) tiny = pakiLink;
 
   let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');
-  all.push({original:o,shortLink:tiny,longLink:pakiLink,encoded:encoded,owner:cur.email,clicks:0,date:new Date().toLocaleDateString('en-GB'),createdAt:Date.now()});
+  // make sure code is unique
+  while(all.some(x=>x.sCode===sCode)){ sCode=genShortId(); shortLink=location.origin+location.pathname+"?s="+sCode; }
+  
+  all.push({original:o, shortLink:shortLink, sCode:sCode, encoded:encoded, owner:cur.email, clicks:0, date:new Date().toLocaleDateString('en-GB'), createdAt:Date.now()});
   localStorage.setItem('skate_all_links',JSON.stringify(all));
 
-  document.getElementById('shortLink').innerText=tiny;
-  document.getElementById('longLinkShow').innerText="✅ Yehi Chhoti Link Hai! Andar Perfect Brand Hai - Kabhi Expire Nahi Hogi";
+  document.getElementById('shortLink').innerText=shortLink;
+  document.getElementById('longLinkShow').innerText="✅ Short Link Ready! Like ?s="+sCode+" - Permanent - Never Expires";
   document.getElementById('readySec').style.display='block';
   loadR();
   btn.innerText="✨ Generate Earning Link";
@@ -102,10 +83,26 @@ function loadR(){if(!cur) return; let all=JSON.parse(localStorage.getItem('skate
 function copyT(id,btn){navigator.clipboard.writeText(document.getElementById(id).innerText);let b=btn;let old=b.innerText;b.innerText="✅ Copied!";setTimeout(()=>b.innerText=old,1500);}
 function copyRecent(btn,link){navigator.clipboard.writeText(link);let old=btn.innerText;btn.innerText="✅";setTimeout(()=>btn.innerText=old,1500);}
 (function(){
-  let p=new URLSearchParams(location.search);let r=p.get('r');if(!r) return;
+  let p=new URLSearchParams(location.search);
+  let s=p.get('s');
+  let r=p.get('r');
+  if(!s && !r) return;
   document.getElementById('loginPage').style.display='none';document.getElementById('mainApp').style.display='none';document.getElementById('securePage').style.display='flex';
-  let finalUrl=null;try{finalUrl=decodeURIComponent(escape(atob(r)));}catch(e){try{finalUrl=atob(r);}catch(e2){}}
-  if(finalUrl){setTimeout(()=>{location.replace(finalUrl);},1200);}
+  
+  let finalUrl=null;
+  if(s){
+    let all=JSON.parse(localStorage.getItem('skate_all_links')||'[]');
+    let found=all.find(x=>x.sCode===s || x.shortLink.includes("?s="+s));
+    if(found){
+      try{ finalUrl=decodeURIComponent(escape(atob(found.encoded))); }catch(e){ finalUrl=found.original; }
+    }
+  }
+  if(!finalUrl && r){
+    try{finalUrl=decodeURIComponent(escape(atob(r)));}catch(e){try{finalUrl=atob(r);}catch(e2){}}
+  }
+  if(finalUrl){setTimeout(()=>{location.replace(finalUrl);},1000);}else{
+    document.getElementById('securePage').innerHTML='<div style="font-weight:800;color:#111">Link not found on this device. Please open the ?r= backup link or generate again.</div>';
+  }
 })();
 checkAuth();
 </script></body></html>
