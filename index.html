@@ -1,110 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SkateCart Creator</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkateCart - Creator Platform</title>
 <style>
-body{margin:0;font-family:Arial;background:#f5f7f9;display:flex;justify-content:center;align-items:center;min-height:100vh}
-.card{background:#fff;width:92%;max-width:420px;padding:24px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.1);margin:20px 0}
-h2{margin:0;color:#1a2a3a} .sub{color:#6b7a8d;font-size:14px;margin:6px 0 18px}
-label{font-size:13px;font-weight:bold} 
-input{width:100%;border:none;border-bottom:1.5px solid #d0d7e0;padding:12px 0;margin:8px 0 18px;outline:none;font-size:15px;box-sizing:border-box}
-.btn{width:100%;background:#0d9488;color:#fff;border:none;padding:14px;border-radius:10px;font-weight:bold;cursor:pointer}
-.bottom{margin-top:18px;font-size:14px;text-align:center} .bottom a{color:#0d9488;font-weight:bold;text-decoration:none}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial;background:#f6fafa;color:#1e2f3d}
+.header{position:sticky;top:0;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #e5ecec;z-index:100}
+.logo{font-weight:800;font-size:22px;color:#0d9488} .logo span{color:#0f172a;font-style:italic}
+.menuBtn{font-size:26px;background:none;border:none;cursor:pointer}
+.sidebar{position:fixed;top:0;right:-100%;width:82%;max-width:340px;height:100%;background:#fff;box-shadow:-10px 0 30px rgba(0,0,0,.1);transition:.3s;z-index:200;padding:20px}
+.sidebar.open{right:0} .sideLink{padding:14px 16px;border-radius:10px;cursor:pointer;margin:4px 0;font-weight:600} .sideLink.active{background:#e6f7f5;color:#0d5d56}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);display:none;z-index:150} .overlay.show{display:block}
+.card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.06);margin:16px auto;max-width:500px;width:92%}
+h1{font-size:28px;text-align:center;line-height:1.2} h1 span{color:#0d9488}
+.input{width:100%;padding:14px;border:1.5px solid #dbe6e6;border-radius:10px;margin:10px 0;font-size:15px}
+.btn{width:100%;background:#2ec4b6;color:#fff;border:none;padding:14px;border-radius:10px;font-weight:800;cursor:pointer;font-size:16px}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.stat{background:#f0fdfa;border:1px solid #ccfbf1;padding:14px;border-radius:12px;text-align:center}
+.stat b{font-size:22px;color:#0d9488;display:block} .stat small{color:#666}
+.badge{display:inline-block;padding:6px 12px;border-radius:20px;background:#fff;border:1px solid #ccc;font-size:12px;margin:4px;cursor:pointer}
+.badge.active{background:#0d9488;color:#fff;border-color:#0d9488}
+.linkItem{background:#f8fafa;padding:12px;border-radius:10px;margin-top:10px;font-size:13px;border:1px solid #e5ecec;word-break:break-all}
+select.input{background:#fff}
 .hidden{display:none}
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:15px 0}
-.stat{background:#f0fdfa;padding:12px;border-radius:10px;text-align:center;border:1px solid #ccfbf1}
-.stat b{display:block;font-size:20px;color:#0d9488} .stat span{font-size:12px;color:#555}
-.cat{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-.cat button{padding:8px 14px;border-radius:20px;border:1px solid #0d9488;background:#fff;color:#0d9488;font-size:13px;cursor:pointer}
-.cat button.active{background:#0d9488;color:#fff}
+.payBox{background:#f0fdfa;border:1.5px dashed #0d9488;padding:16px;border-radius:12px}
 </style>
 </head>
 <body>
-<div id="signupBox" class="card">
-<h2>Create Creator Account</h2><p class="sub">Join SkateCart and start earning</p>
-<label>Full Name</label><input id="sName" placeholder="Enter your name">
-<label>Email address</label><input id="sEmail" placeholder="Enter your Gmail">
-<label>Password</label><input id="sPass" type="password" placeholder="Create password">
-<label>Facebook Group Link</label><input id="sGroup" placeholder="https://facebook.com/groups/...">
-<button class="btn" onclick="doSignup()">Create Account & Get Approved</button>
-<div class="bottom">Already have account? <a href="#" onclick="showLogin()">Sign in</a></div>
+<div class="header"><div class="logo">Skate<span>Cart</span></div><button class="menuBtn" onclick="toggleMenu()">☰</button></div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<div class="sidebar" id="sidebar">
+<div style="display:flex;justify-content:space-between;align-items:center"><div class="logo">Skate<span>Cart</span></div><button onclick="toggleMenu()" style="font-size:24px;border:none;background:none">✕</button></div><hr style="margin:16px 0;border:none;border-top:1px solid #eee">
+<div class="sideLink active" id="mLinks" onclick="goPage('links')">Links</div>
+<div class="sideLink" id="mAnalytics" onclick="goPage('analytics')">Analytics</div>
+<div class="sideLink" id="mPayment" onclick="goPage('payment')">Payment</div>
+<div class="sideLink" id="mHistory" onclick="goPage('history')">Payment History</div><hr style="margin:16px 0;border:none;border-top:1px solid #eee">
+<div style="padding:10px"><b id="uName">Haresh Kumar</b><br><small id="uEmail" style="color:#6b7a8d">email@gmail.com</small><br><br><a style="color:#d11;cursor:pointer;font-weight:700" onclick="doLogout()">Sign out</a></div>
 </div>
-<div id="loginBox" class="card hidden">
-<h2>Welcome back</h2><p class="sub">Sign in to your creator account</p>
-<label>Email</label><input id="lEmail" placeholder="Enter your email">
-<label>Password</label><input id="lPass" type="password" placeholder="Enter your password">
-<button class="btn" onclick="doLogin()">Sign in</button>
-<div class="bottom">Need access? <a href="#" onclick="showSignup()">Create account</a></div>
-<p id="lMsg" style="color:red;text-align:center"></p>
+
+<!-- AUTH -->
+<div id="authBox">
+<div id="signupBox" class="card" style="margin-top:40px"><h2>Create Creator Account</h2><p style="color:#6b7a8d">Join SkateCart and start earning</p><input id="sName" class="input" placeholder="Full Name"><input id="sEmail" class="input" placeholder="Gmail"><input id="sPass" class="input" type="password" placeholder="Password"><input id="sGroup" class="input" placeholder="Facebook Group Link"><button class="btn" onclick="doSignup()">Create Account</button><p style="text-align:center;margin-top:12px"><a onclick="showLogin()" style="color:#0d9488;font-weight:700;cursor:pointer">Already have account? Sign in</a></p></div>
+<div id="loginBox" class="card hidden" style="margin-top:40px"><h2>Welcome back</h2><input id="lEmail" class="input" placeholder="Email"><input id="lPass" class="input" type="password" placeholder="Password"><button class="btn" onclick="doLogin()">Sign in</button><p id="lMsg" style="color:red;text-align:center"></p><p style="text-align:center;margin-top:12px"><a onclick="showSignup()" style="color:#0d9488;font-weight:700;cursor:pointer">Create account</a></p></div>
 </div>
-<div id="dashBox" class="card hidden">
-<h2>Dashboard 🛹</h2><p class="sub">Welcome <b id="dName"></b></p>
-<div class="stats">
-<div class="stat"><b id="cClick">0</b><span>Clicks</span></div>
-<div class="stat"><b id="cEarn">$0</b><span>Earning</span></div>
-<div class="stat"><b id="cProd">0</b><span>Products</span></div>
+
+<!-- PAGES -->
+<div id="pageLinks" class="hidden"><div class="card" style="background:transparent;box-shadow:none"><h1>Share shop links, <span>earn from every link</span></h1><p style="text-align:center;color:#5a6d7e">Paste a product URL to generate trackable shop links, publish editorial content, and monitor clicks and commissions in SkateCart.</p><p style="text-align:center;color:#a05a00;font-size:14px;font-weight:600">Review each link in SkateCart before you share it with your audience.</p></div>
+<div class="card"><input id="wLink" class="input" placeholder="https://walmart.com/product/example"><button class="btn" onclick="makeLink()">Generate link</button></div>
+<div class="card"><div style="display:flex;gap:8px;align-items:center"><div style="background:#0d9488;color:#fff;padding:10px;border-radius:10px">🔗</div><b>Recent Links</b></div><div id="recentBox"></div></div></div>
+
+<div id="pageAnalytics" class="hidden"><div class="card"><h2>Analytics</h2><div class="stats" style="margin:12px 0"><div class="stat"><b id="aClick">0</b><small>Clicks</small></div><div class="stat"><b id="aEarn">$0.00</b><small>Earning</small></div><div class="stat"><b id="aProd">0</b><small>Products</small></div></div><div style="background:#f8fafa;padding:14px;border-radius:10px;font-size:13px">Today: <b id="todayClick">0 clicks</b> | Conversion: <b>~4.2%</b><br><small style="color:#666">Last 7 days graph will come here after real API integration.</small></div></div></div>
+
+<div id="pagePayment" class="hidden"><div class="card"><h2>Payment Setup 🌍</h2><p style="color:#666;font-size:13px">Koi bhi country wala banda apna bank add karke commission direct le sakta hai. Minimum payout $10.</p>
+<label style="font-weight:700;font-size:13px">Payout Method</label><select id="payMethod" class="input" onchange="changePay()"><option value="bank">Bank Transfer (All Countries)</option><option value="wise">Wise</option><option value="paypal">PayPal</option></select>
+<div id="bankFields">
+<select id="pCountry" class="input"><option>Pakistan</option><option>India</option><option>USA</option><option>UK</option><option>Canada</option><option>Germany</option><option>UAE</option><option>Saudi Arabia</option><option>Bangladesh</option><option>Nepal</option><option>Other - Any Country</option></select>
+<input id="pHolder" class="input" placeholder="Account Holder Name">
+<input id="pBank" class="input" placeholder="Bank Name (e.g. HBL, SBI, Chase)">
+<input id="pIBAN" class="input" placeholder="IBAN / Account Number">
+<input id="pSwift" class="input" placeholder="SWIFT / BIC Code (for international)">
 </div>
-<label>Select Category</label>
-<div class="cat" id="catBox">
-<button class="active" onclick="setCat(this,'Toys')">Toys</button>
-<button onclick="setCat(this,'Home')">Home</button>
-<button onclick="setCat(this,'Kitchen')">Kitchen</button>
-<button onclick="setCat(this,'Beauty')">Beauty</button>
-<button onclick="setCat(this,'Electronics')">Electronics</button>
-</div>
-<label>Walmart Product Link</label>
-<input id="wLink" placeholder="Paste Walmart Link here">
-<button class="btn" onclick="makeLink()">Create My Link</button>
-<div id="result" style="display:none;margin-top:15px;background:#f0fdfa;padding:12px;border-radius:8px;word-break:break-all;border:1px dashed #0d9488"></div>
-<div id="myLinks" style="margin-top:20px"></div>
-<button class="btn" style="margin-top:20px;background:#ddd;color:#000" onclick="doLogout()">Logout</button>
-</div>
+<div id="paypalField" class="hidden"><input id="pPaypal" class="input" placeholder="Your PayPal Email"></div>
+<button class="btn" onclick="saveBank()">Save Bank / Payout Method</button>
+<div id="savedBank" style="margin-top:14px"></div>
+<div class="payBox" style="margin-top:16px"><b>Current Balance: <span id="bal">$0.00</span></b><br><small>Eligible for payout after $10. You will receive in 2-3 business days.</small><br><br><button class="btn" style="background:#0f172a" onclick="requestPayout()">Request Payout</button></div>
+</div></div>
+
+<div id="pageHistory" class="hidden"><div class="card"><h2>Payment History</h2><div id="historyBox"></div></div></div>
+
 <script>
-let currentCat='Toys';
-function showLogin(){signupBox.classList.add('hidden');loginBox.classList.remove('hidden');dashBox.classList.add('hidden')}
-function showSignup(){loginBox.classList.add('hidden');signupBox.classList.remove('hidden')}
-function setCat(el,cat){currentCat=cat;document.querySelectorAll('.cat button').forEach(b=>b.classList.remove('active'));el.classList.add('active');}
-function doSignup(){
- let n=sName.value.trim(), e=sEmail.value.trim(), p=sPass.value.trim(), g=sGroup.value.trim();
- if(!n||!e||!p||!g){alert("Sab boxes bharo");return}
- let users=JSON.parse(localStorage.getItem('skate_users')||'[]');
- if(users.find(u=>u.email==e)){alert("Ye Gmail pehle se hai, Login karo");showLogin();return}
- users.push({name:n,email:e,pass:p,group:g}); localStorage.setItem('skate_users',JSON.stringify(users));
- alert("Account Approved! Ab Login karo"); showLogin();
-}
-function doLogin(){
- let e=lEmail.value.trim(), p=lPass.value.trim();
- let users=JSON.parse(localStorage.getItem('skate_users')||'[]');
- let f=users.find(u=>u.email==e && u.pass==p);
- if(f){localStorage.setItem('skate_current',JSON.stringify(f));openDash(f)}else{lMsg.innerText="Gmail ya Password ghalat hai!"}
-}
-function openDash(u){
- signupBox.classList.add('hidden');loginBox.classList.add('hidden');dashBox.classList.remove('hidden');
- dName.innerText=u.name; loadStats();
-}
-function loadStats(){
- let all=JSON.parse(localStorage.getItem('skate_links')||'[]');
- let cur=JSON.parse(localStorage.getItem('skate_current'));
- let mine=all.filter(x=>x.owner==cur.email);
- cProd.innerText=mine.length; cClick.innerText=mine.reduce((s,x)=>s+x.clicks,0); cEarn.innerText='$'+(mine.reduce((s,x)=>s+x.clicks,0)*0.20).toFixed(2);
- let html='<b style="font-size:14px">My Created Links:</b>'; mine.reverse().forEach(m=>{
- html+=`<div style="background:#f8fafc;padding:10px;border-radius:8px;margin-top:8px;font-size:12px"><b>${m.cat}</b> - ${m.clicks} Clicks<br><span style="color:#0d9488">${m.myLink}</span></div>`;
- }); myLinks.innerHTML=html;
-}
-function makeLink(){
- let link=wLink.value.trim(); if(!link){alert("Link dalo");return}
- let cur=JSON.parse(localStorage.getItem('skate_current'));
- let myLink="https://skatecart.github.io/Skatecart/?ref="+cur.email+"&cat="+currentCat+"&product="+encodeURIComponent(link);
- let all=JSON.parse(localStorage.getItem('skate_links')||'[]');
- all.push({owner:cur.email,cat:currentCat,original:link,myLink:myLink,clicks:Math.floor(Math.random()*50)+5});
- localStorage.setItem('skate_links',JSON.stringify(all));
- result.style.display="block"; result.innerHTML="<b>✅ "+currentCat+" Link Ready:</b><br>"+myLink+"<br><br><button onclick=\"navigator.clipboard.writeText('"+myLink+"')\" style='padding:8px 12px;background:#0d9488;color:#fff;border:none;border-radius:6px'>Copy Link</button>";
- wLink.value=''; loadStats();
-}
-function doLogout(){localStorage.removeItem('skate_current');showLogin()}
-let cur=localStorage.getItem('skate_current'); if(cur){openDash(JSON.parse(cur))}
-</script>
-</body>
-</html>
+let currentUser=null;
+function toggleMenu(){sidebar.classList.toggle('open');overlay.classList.toggle('show')}
+function goPage(p){document.querySelectorAll('.sideLink').forEach(s=>s.classList.remove('active'));document.getElementById('m'+p.charAt(0).toUpperCase()+p.slice(1)).classList.add('active');['links','analytics','payment','history'].forEach(x=>document.getElementById('page'+x.charAt(0).toUpperCase()+x.slice(1)).classList.add('hidden'));document.getElementById('page'+p.charAt(0).toUpperCase()+p.slice(1)).classList.remove('hidden');toggleMenu();if(p=='analytics'||p=='payment'||p=='history')loadAll();}
+
+function showLogin(){signupBox.classList.add('hidden');loginBox.classList.remove('hidden')}function showSignup(){loginBox.classList.add('hidden');signupBox.classList.remove('hidden')}
+function doSignup(){let n=sName.value.trim(),e=sEmail.value.trim(),p=sPass.value.trim(),g=sGroup.value.trim();if(!n||!e||!p){alert("Sab bharo");return}let users=JSON.parse(localStorage.getItem('skate_users')||'[]');if(users.find(u=>u.email==e)){alert("Already exists, login karo");showLogin();return}users.push({name:n,email:e,pass:p,group:g});localStorage.setItem('skate_users',JSON.stringify(users));alert("Approved! Login karo");showLogin();}
+function doLogin(){let e=lEmail.value.trim(),p=lPass.value.trim();let users=JSON.parse(localStorage.getItem('skate_users')||'[]');let f=users.find(u=>u.email==e&&u.pass==p);if(!f){lMsg.innerText="Ghalat email/password";return}localStorage.setItem('skate_current',JSON.stringify(f));openApp(f)}
+function openApp(u){currentUser=u;authBox.classList.add('hidden');document.getElementById('pageLinks').classList.remove('hidden');uName.innerText=u.name;uEmail.innerText=u.email;loadAll();}
+function doLogout(){localStorage.removeItem('skate_current');location.reload()}
+function changePay(){let v=payMethod.value;bankFields.classList.toggle('hidden',v!='bank');paypalField.classList.toggle('hidden',v!='paypal');}
+function saveBank(){let data={method:payMethod.value,country:pCountry.value,holder:pHolder.value,bank:pBank.value,iban:pIBAN.value,swift:pSwift.value,paypal:document.getElementById('pPaypal').value};if(!data.holder){alert("Holder name dalo");return}localStorage.setItem('skate_bank_'+currentUser.email,JSON.stringify(data));alert("✅ Bank Saved! Ab koi bhi country se payout le sakte ho");showSavedBank();}
+function showSavedBank(){let d=JSON.parse(localStorage.getItem('skate_bank_'+currentUser.email)||'null');if(!d){savedBank.innerHTML="<small style='color:#888'>No bank added yet</small>";return}savedBank.innerHTML=`<div class="payBox"><b>✅ ${d.method.toUpperCase()} Saved</b><br><small>${d.country||''} - ${d.bank||d.paypal||''}<br>Holder: ${d.holder}<br>IBAN/Acc: ${d.iban||d.paypal}</small></div>`;}
+function makeLink(){let link=wLink.value.trim();if(!link){alert("Link dalo");return}let all=JSON.parse(localStorage.getItem('skate_links')||'[]');let my="https://skatecart.github.io/Skatecart/?ref="+currentUser.email+"&product="+encodeURIComponent(link);all.push({owner:currentUser.email,original:link,myLink:my,clicks:Math.floor(Math.random()*80)+1,date:new Date().toLocaleDateString()});localStorage.setItem('skate_links',JSON.stringify(all));wLink.value='';loadAll();alert("Link Generated! Recent Links me dekho");}
+function loadAll(){if(!currentUser)return;let all=JSON.parse(localStorage.getItem('skate_links')||'[]');let mine=all.filter(x=>x.owner==currentUser.email);let totalClicks=mine.reduce((s,x)=>s+x.clicks,0);let earn=totalClicks*0.25;document.getElementById('aClick').innerText=totalClicks;document.getElementById('aEarn').innerText='$'+earn.toFixed(2);document.getElementById('aProd').innerText=mine.length;document.getElementById('bal').innerText='$'+earn.toFixed(2);document.getElementById('todayClick').innerText=totalClicks+' clicks';let html='';mine.slice().reverse().forEach(m=>{html+=`<div class="linkItem"><b>${m.date}</b> - ${m.clicks} clicks<br><span style="color:#0d9488">${m.myLink}</span><br><button onclick="navigator.clipboard.writeText('${m.myLink}');alert('Copied')" style="margin-top:6px;padding:6px 10px;border-radius:6px;border:none;background:#0d9488;color:#fff">Copy</button></div>`});recentBox.innerHTML=html||"<small>No links yet</small>";showSavedBank();loadHistory(earn);}
+function loadHistory(earn){let h=JSON.parse(localStorage.getItem('
